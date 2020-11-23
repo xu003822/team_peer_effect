@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Questionaire
+{% endblock %}
+
+
+{% block content %}
+Please complete the following survey questions:
+
+Question 1
+{% formfield player.age %}
+
+Question 2
+{% formfield player.gender %}
+
+Question 3
+{% formfield player.income %}
+
+{% next_button %}
+
+{% endblock %}

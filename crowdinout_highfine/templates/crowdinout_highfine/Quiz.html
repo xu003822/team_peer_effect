@@ -1,0 +1,30 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Quiz
+{% endblock %}
+
+
+{% block content %}
+<p style="border: 2px solid black;">
+    Please  answer  the  following  questions,  which  are  designed  to  help  you  understand  the instructions.
+    Do  not  hesitate  to  ask  the  administrators  if  you  have  any  questions.
+   Check the correct answer. Suppose you extract 20 fish this round and your group mates altogether extract 120 fish.
+    How many fish you will get for this round?
+</p>
+
+<form>
+  <input type="radio" id="male" name="gender" value= 44>
+  <label for="male">44</label><br>
+  <input type="radio" id="female" name="gender" value=60>
+  <label for="female">60</label><br>
+  <input type="radio" id="other" name="gender" value=80>
+  <label for="other">80</label>
+    <input type="radio" id="other" name="gender" value=120>
+  <label for="other">120</label>
+</form>
+
+{% next_button %}
+
+{% endblock %}

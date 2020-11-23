@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+<p>
+    Below are the extraction level for each group member:<br>
+</p>
+
+<table class="table">
+  <tr>
+      <th>Player</th>
+      <th>Payoff</th>
+  </tr>
+  {% for other_player in group.get_players %}
+      <tr>
+          <td>{{ other_player.id_in_group }}</td>
+          <td>{{ other_player.extraction }}</td>
+      </tr>
+  {% endfor %}
+</table>
+
+<p>
+    Your extraction is <b>{{player.extraction}}</b>,<br>
+    Your group contributed <b>{{ group.tot_extraction }}</b>,<br>
+    resulting in an individual share of <b>{{ group.individual_share }}</b>.<br>
+    Your profit is therefore <b>{{ player.payoff }}</b>.
+</p>
+
+
+
+{% next_button %}
+
+
+{% endblock %}
+
+
