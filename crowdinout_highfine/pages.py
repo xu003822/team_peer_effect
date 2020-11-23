@@ -10,6 +10,12 @@ class Instruction(Page):
         else:
            return False
 
+class Quiz(Page):
+    def is_displayed(self):
+        if self.round_number == 1:
+           return True
+        else:
+           return False
 
 class Fine_Instruction(Page):
     def is_displayed(self):
@@ -54,4 +60,4 @@ class Questionaire(Page):
 
 
 
-page_sequence = [Instruction, Fine_Instruction, Revoke_Instruction, Contribute_first_page, ResultsWaitPage, Results, Questionaire]
+page_sequence = [Instruction, Quiz, Fine_Instruction, Revoke_Instruction, Contribute_first_page, ResultsWaitPage, Results, Questionaire]
