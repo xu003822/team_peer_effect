@@ -2,15 +2,20 @@
 {% load otree static %}
 
 {% block title %}
-   Contribution
+   Contribution_Round {{round_nm}}
 {% endblock %}
 
 {% block content %}
 <p>
-    This is a public goods game with
-    {{ Constants.players_per_group }} players per group. Please enter the number of fish you would like to catch in this round, the number has to be an integer and between 0 and 40 (including 0 and 40)
+    Your group of
+    {{ Constants.players_per_group }} players share a fishery resource of 200 fish. In this round, each group member must decide how many fish
+    between 0 and 40 to catch. This means you can catch 0, or 1, or 2, .., or 40 fish.  Each fish caught equals 1 point.  These decisions
+    will be made at the same time.  At the end of the round, the number of fish doubles, up to the lake's
+    capacity of 200 fish and is divided equally among the group members. Please enter the number of fish you would like to catch in this round,
+    the number has to be an integer and between 0 and 40 (including 0 and 40). The image below might help you understand your group's situation.
 </p>
 
+{% load static %} <img src="{% static "fish.png" %}" alt="Hi!"/>
 
 {% formfields %}
 

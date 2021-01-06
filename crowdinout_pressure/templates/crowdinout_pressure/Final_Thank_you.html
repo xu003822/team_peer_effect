@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Conclusion
+{% endblock %}
+
+{% block content %}
+    <script>
+        // Clears the local storage from the Comp Check Question Page timer.
+        localStorage.removeItem('saved_countdown');
+    </script>
+    
+    <p>
+        Thank you for your participation! Your total points accumulated over the rounds are {{player.acc_payoff}}, which is worth {{player.act_payoff}}. Your total
+        payoff including your participation fee would then be {{player.actpar_payoff}}
+
+    </p>
+    <p>
+        You may now leave! Please report your participation code to the experimenter and receive the money.
+    </p>
+    <p>
+
+    </p>
+{% endblock %}

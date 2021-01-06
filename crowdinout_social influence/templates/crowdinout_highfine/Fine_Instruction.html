@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Regulation Imposed
+{% endblock %}
+
+
+{% block content %}
+<p>
+    As of now, you might realize that if everybody catches 20 fish, your group's aggregate earnings would be maximized, so is the average group earnings.
+    By catching over 20 fish, the fish will be caught too fast.
+    Therefore, at  the  beginning  of  this   round,  a regulation of maximum 20 fish may be imposed on you. Due to limited enforcement budget,
+    each round only one member in each group will be imposed a regulation and there is a 5% chance that this member will be audited and pay a
+    fine of 30 points for each unit extra extraction over the 20 fish. In this round, group member with ID number {{group.audit_id}}  are imposed upon a regulation.
+
+</p>
+
+{% next_button %}
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    INTRODUCTION - PLEASE READ CAREFULLY
+{% endblock %}
+
+{% block content %}
+    <p>
+        Welcome! We want to thank you all for accepting this invitation and participating in this exercise.
+The objective of this exercise is to understand how people make decisions related to the use of a shared natural resource.
+    </p>
+    <p>
+        A record of your participation in this research study will be maintained, but this record will be kept strictly confidential. Further, no one (including the experimenters) will be able to associate your responses in today’s study to you personally. Responses will only be attributable to your unique ID.
+    </p>
+    <p>
+        Your participation in this study should take approximately 1 hour of your time. This study involves minimal risk to you. The benefits, however, may impact society by helping increase knowledge about group decisions.
+    </p>
+    <p>
+        Your participation in this study is voluntary. You do not have to answer any question that you do not want to answer for any reason. However, if you withdraw from the study before you have reached the end, you will not receive payment. If you have further questions about this project or if you have a research-related problem you may contact the researcher, Botao Qin, at 801-422-1969 or bqin@xjtu.edu.cn.
+    </p>
+    <p>
+        If you have questions about your rights as a study participant, or are dissatisfied at any time with any aspect of this study, you may contact (anonymously, if you wish) the Institutional Review Board by phone at (801) 422-3851 or email at irb@byu.edu..
+    </p>
+    <p>
+        Continuing on with the study implies your consent to participate. If you agree to participate, please click the “Agree” button below to continue.
+    </p>
+    <p> 
+        Thank you!
+    </p>
+
+    <div>
+        <button name="consent" value='True' class="btn btn-primary btn-large">Agree</button>
+        <button name="consent" value='False' class="btn btn-primary btn-large">Disagree</button>
+    </div>
+
+    {{ form.consent.errors }}
+
+{% endblock %}

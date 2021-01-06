@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Questionaire
+{% endblock %}
+
+
+{% block content %}
+Now the game is over. Please complete the following survey questions:
+
+Question 1
+{% formfield player.age %}
+
+Question 2
+{% formfield player.gender %}
+
+Question 3
+{% formfield player.income %}
+
+Click "next" to submit.
+{% next_button %}
+
+{% endblock %}
