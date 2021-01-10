@@ -1,5 +1,6 @@
 from os import environ
 
+STATIC_URL = '/static/'
 
 SESSION_CONFIGS = [
     dict(
@@ -7,6 +8,13 @@ SESSION_CONFIGS = [
         display_name='A public goods experiment with high fine',
         num_demo_participants=2,
         app_sequence=['crowdinout_highfine'],
+    ),
+
+    dict(
+        name='crowdinout_lowfine',
+        display_name='A public goods experiment with low fine',
+        num_demo_participants=2,
+        app_sequence=['crowdinout_lowfine'],
     ),
 
     dict(

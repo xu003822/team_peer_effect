@@ -140,7 +140,7 @@ class Results_pressure(Page):
 
 class Questionaire(Page):
     form_model = "player"
-    form_fields = ["age", "gender", "income", "party"]
+    form_fields = ["age", "gender", "income", "party", "strategy", "strategy_repeal"]
 
     def is_displayed(self):
         if self.round_number == Constants.num_rounds:

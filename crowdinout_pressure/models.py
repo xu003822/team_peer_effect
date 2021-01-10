@@ -89,8 +89,8 @@ def quiz2_question(label):
 class Player(BasePlayer):
     id_number = models.IntegerField(label="Please enter your ID number here", min=0, max=40)
     acc_payoff = models.CurrencyField(label="The player's accumulative payoff is ")
-    act_payoff = modles.CurrencyField(label="The player's accumulative payoff in canadian dollar is")
-    actpar_payoff = modles.CurrencyField(label="The player's final payoff including the participation fee is")
+    act_payoff = models.CurrencyField(label="The player's accumulative payoff in canadian dollar is")
+    actpar_payoff = models.CurrencyField(label="The player's final payoff including the participation fee is")
     extraction = models.IntegerField(label="how many fish you decide to catch in this round", min=0, max=40)
     age = models.IntegerField(label="What's your age?")
     gender = models.StringField(label="What's your gender?",
@@ -101,6 +101,12 @@ class Player(BasePlayer):
     party = models.StringField(label="Are you a member of the Chinese Community Party?",
                                choices=["Yes", "No", "Prefer not to say"]
                                )
+    strategy = models.StringField(
+        label="Did you change your contribution after the random audit is imposed? If yes, why? If no, why not?",
+        )
+    strategy_repeal = models.StringField(
+        label="Did you change your contribution after the random audit is repealed? If yes, why? If no, why not?",
+    )
     consent = models.BooleanField()  # Record participant's consent.
     # Quiz QUESTIONS
     # Question 1

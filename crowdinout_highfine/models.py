@@ -60,6 +60,8 @@ class Group(BaseGroup):
         for p in players:
             if self.round_number > 2:
                p.acc_payoff = p.participant.payoff - p.in_round(1).payoff - p.in_round(2).payoff #participant.payoff is the historical payoff
+               p.act_payoff = p.acc_payoff * Constants.conversion
+               p.actpar_payoff = p.act_payoff + self.session.config['participation_fee']
 
         #for p in players:
             #p.participant.vars['idnumber'] = p.id_number
@@ -81,6 +83,8 @@ def quiz2_question(label):
 class Player(BasePlayer):
       id_number = models.IntegerField(label="Please enter your ID number here", min=0, max=40)
       acc_payoff = models.CurrencyField(label="The player's accumulative payoff is ")
+      act_payoff = models.CurrencyField(label="The player's accumulative payoff in canadian dollar is")
+      actpar_payoff = models.CurrencyField(label="The player's final payoff including the participation fee is")
       extraction = models.IntegerField(label="how many fish you decide to catch in this round", min=0, max=40)
       age = models.IntegerField(label="What's your age?")
       gender = models.StringField(label="What's your gender?",

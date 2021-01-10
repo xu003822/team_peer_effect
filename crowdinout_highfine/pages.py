@@ -21,6 +21,9 @@ class Disagree(Page):
 
 
 class Instruction(Page):
+    form_model = 'player'
+    form_fields = ['quiz1_all', 'quiz2_all']
+
     def is_displayed(self):
         if self.round_number == 1:
             return True

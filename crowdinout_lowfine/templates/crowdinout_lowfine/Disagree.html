@@ -2,14 +2,18 @@
 {% load otree static %}
 
 {% block title %}
-    Thank you!
+
 {% endblock %}
 
 {% block content %}
     <p>
-        You have declined participation in the study. Thank you for your time.
+        Are you sure you want to exit the study? This means you will only get the partifipation fee. If you change your mind, click "next".
+        Otherwise thank you for your participation. You may close this window.
     </p>
     <p>
-        You may close this window.
+
     </p>
+
+{% next_button %}
+
 {% endblock %}
