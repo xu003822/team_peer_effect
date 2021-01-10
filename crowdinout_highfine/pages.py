@@ -152,5 +152,5 @@ class Final_Thank_you(Page):
         else:
             return False
 
-page_sequence = [consent, Disagree, Instruction, Quiz, PracticeRound, Practice, Practice2, Contribute_first_page, ResultsWaitPage, ResultsPractice, Results, Fine_Instruction, Revoke_Instruction,
+page_sequence = [consent, Disagree, Instruction, PracticeRound, Practice, Practice2, Contribute_first_page, ResultsWaitPage, ResultsPractice, Results, Fine_Instruction, Revoke_Instruction,
                   Questionaire, Final_Thank_you]

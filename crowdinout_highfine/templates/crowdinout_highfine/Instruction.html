@@ -72,10 +72,9 @@
     Thus,  each group member will get 40 more fish at the end of the round.
     Therefore,  your total amount of fish in this round would be 10 + 40 = 50.</p>
 
-<p>Still unclear? Raise hand and the experimenter will come to you and personally explain to you. Otherwise please click "next".</p>
+<p>Still unclear? Raise hand and the experimenter will come to you and personally explain to you. Otherwise please click "Tab2".</p>
 
 
-<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
   </div>
 
 
@@ -89,17 +88,14 @@
 <p>
     Before you begin, please answer the following questions to ensure that you understand the instructions.
     You will not be able to proceed until have you have answered each question correctly.
-   Check the correct answer and then click "Next".
+   Check the correct answer and then click "Next". If you want to refer back to the "Instruction", click on "Tab1"
 </p>
 
 {% formfield player.quiz1_all %}
 
 {% formfield player.quiz2_all %}
 
- <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
-<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+{% next_button %}
 
-     </div>
-</div>
 
 {% endblock %}
