@@ -1,0 +1,61 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Final Round
+{% endblock %}
+
+{% block content %}
+<!--<p>
+    Below are the extraction level for you and your groupmates:<br>
+</p>
+
+<table class="table">
+  <tr>
+      <th>Player</th>
+      <th>Extraction</th>
+  </tr>
+
+  <tr>
+          <td> your extraction </td>
+          <td>{{ player.extraction }}</td>
+  </tr>
+
+  {% for other_player in group.get_players %}
+      <tr>
+          <td>{{ other_player.id_in_group }}</td>
+          <td>{{ other_player.extraction }}</td>
+
+  {% endfor %}
+  </tr>
+</table>-->
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p> In previous rounds, you did not know other group members' fish catch before you make your harvest decision. Now, we will
+    tell you your group members' average fish catch before you make your harvest decision. There are nine decisions to be
+    made in this round. Each decision is independent of the other. In the end, we will randomly choose one decision as your
+    final decision in this round and your payment for this round will depend on that decision.
+
+    Now we will show you one by one how much is your groupmates' average harvest. After you have seen this, you will decide how many fish you
+    would like to catch. Note again, your catch has to be between 0 and 40 (inclusive).
+
+</p>
+    </div>
+</div>
+
+{% formfield player.q1 %}
+{% formfield player.q2 %}
+{% formfield player.q3 %}
+{% formfield player.q4 %}
+{% formfield player.q5 %}
+{% formfield player.q6 %}
+{% formfield player.q7 %}
+{% formfield player.q8 %}
+{% formfield player.q9 %}
+
+
+{% next_button %}
+
+{% endblock %}
+
+

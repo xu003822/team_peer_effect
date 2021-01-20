@@ -23,6 +23,12 @@ SESSION_CONFIGS = [
         num_demo_participants=2,
         app_sequence=['crowdinout_pressure'],
     ),
+    dict(
+        name='crowdinout_social_influence',
+        display_name='A public goods experiment testing social influence',
+        num_demo_participants=2,
+        app_sequence=['crowdinout_social_influence'],
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

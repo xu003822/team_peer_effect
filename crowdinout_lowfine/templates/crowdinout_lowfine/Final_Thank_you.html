@@ -10,16 +10,21 @@
         // Clears the local storage from the Comp Check Question Page timer.
         localStorage.removeItem('saved_countdown');
     </script>
-    
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+
     <p>
-        Thank you for your participation! Your total points accumulated over the rounds are {{player.acc_payoff}}, which is worth {{player.act_payoff}}. Your total
-        payoff including your participation fee would then be {{player.actpar_payoff}}
+        Thank you for your participation! You have earned a total of {{acc_profit}} points, which is worth {{acc_dollar}} RMB. Your total
+        payoff, including your participation fee, would then be {{acc_final}}.
 
     </p>
     <p>
-        You may now leave! Please report your assigned ID to the experimenter and receive the money
+        You may now leave! Please report your assigned ID to the experimenter and receive the money.
     </p>
-    <p>
 
-    </p>
+    </div>
+</div>
+
+
 {% endblock %}

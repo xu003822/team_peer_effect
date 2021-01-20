@@ -40,6 +40,8 @@ class Group(BaseGroup):
     individual_share = models.FloatField(label="At the end of the round, each of you gets extra amount fish of")
     audit = models.IntegerField(label="The person who is randomly audit is player number")
     auditplayer_extrac = models.IntegerField(label="The audited individual's catch is")
+    audit_id = models.IntegerField(label="The audited player's id is")
+
 
     def set_payoff(self):
         import random
@@ -67,11 +69,14 @@ class Group(BaseGroup):
             if self.round_number > 2:
                 p.acc_payoff = p.participant.payoff - p.in_round(1).payoff - p.in_round(
                     2).payoff  # participant.payoff is the historical payoff
-                p.act_payoff = p.acc_payoff * Constants.conversion
-                p.actpar_payoff = p.act_payoff + self.session.config['participation_fee']
+                #p.act_payoff = p.acc_payoff * Constants.conversion
+                #p.actpar_payoff = p.act_payoff + self.session.config['participation_fee']
 
-        #for p in players:
-            #p.participant.vars['idnumber'] = p.id_number
+            if self.round_number in [Constants.num_rounds - 4, Constants.num_rounds - 3]:
+                self.audit = random.randint(1, 2)
+                playeraudit = self.get_player_by_id(self.audit)
+                self.auditplayer_extrac = playeraudit.extraction
+                self.audit_id = playeraudit.participant.vars['idnumber']
 
 def quiz1_question(label):
     return models.IntegerField(
@@ -106,7 +111,8 @@ class Player(BasePlayer):
       acc_payoff = models.CurrencyField(label="The player's accumulative payoff is ")
       act_payoff = models.CurrencyField(label="The player's accumulative payoff in canadian dollar is")
       actpar_payoff = models.CurrencyField(label="The player's final payoff including the participation fee is")
-      extraction = models.IntegerField(label="how many fish you decide to catch in this round", min=0, max=40)
+      extraction = models.IntegerField(label="How many fish you decide to catch in this round", min=0, max=40)
+      other_extra = models.IntegerField(label="Please also enter your expectation of the average catch of other group members", min=0, max=40)
       individual_fine = models.IntegerField(label="The audited indiviudal's fine is ")
       audit_or_not = models.BooleanField(label="The individual is audited or not")
       age = models.IntegerField(label="What's your age?")
@@ -114,19 +120,40 @@ class Player(BasePlayer):
                                   choices=["Male","Female","other","Prefer not to say"]
       )
 
-      income = models.FloatField(label="What's your family income per year?")
+      income = models.FloatField(label="What's your family income per month?")
       party = models.StringField(label="Are you a member of the Chinese Community Party?",
                                   choices=["Yes", "No", "Prefer not to say"]
                                   )
-      strategy = models.StringField(label="Did you change your contribution after the regulation is imposed? If yes, why? If no, why not?",
+      strategy = models.StringField(label="Did you change your contribution after the regulation was imposed? If yes, why? If no, why not?",
                                   )
       strategy_repeal = models.StringField(
-          label="Did you change your contribution after the regulation is repealed? If yes, why? If no, why not?",
+          label="Did you change your contribution after the regulation was repealed? If yes, why? If no, why not?",
           )
 
       consent = models.BooleanField()  # Record participant's consent.
+     # rand_choice = models.IntegerField(label="The decision that is randomly picked by the experimenter")
+     # condi_choice = models.IntegerField(
+     #     label="what's the contribution for the decision randomly chosen in the last round")
+     # other_choice = models.IntegerField(
+     #     label="what's others' average contribution in the last round")
       # Quiz QUESTIONS
       # Question 1
+      q1 = models.IntegerField(label="Your partner players in the game catch on average of 0 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q2 = models.IntegerField(label="Your partner players in the game catch on average of 5 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q3 = models.IntegerField(
+          label="Your partner players in the game catch on average of 10 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q4 = models.IntegerField(
+          label="Your partner players in the game catch on average of 15 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q5 = models.IntegerField(
+          label="Your partner players in the game catch on average of 20 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q6 = models.IntegerField(
+          label="Your partner players in the game catch on average of 25 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q7 = models.IntegerField(
+          label="Your partner players in the game catch on average of 30 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q8 = models.IntegerField(
+          label="Your partner players in the game catch on average of 35 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q9 = models.IntegerField(
+          label="Your partner players in the game catch on average of 40 fish. Now how many fish you want to catch in this round?", min=0, max=40)
 
       quiz1_all = quiz1_question("1. Suppose you extract 20 fish this round and your group mates altogether extract 120 fish. How many fish you will get for this round?")
       quiz2_all = quiz2_question("2. Suppose you extract 40 fish this round and your group mates altogether extract 80 fish. How many fish you will get for this round?")
@@ -137,7 +164,6 @@ class Player(BasePlayer):
           "2. Suppose you extract 80 fish this round and your group mates altogether extract 80 fish. How many fish you will get for this round?")
 
       def quiz1_all_error_message(self, quiz1_all):
-          self.participant.vars['quiz'] = 1
           if quiz1_all != 44:
              self.participant.vars['quiz'] = 0
              return 'Your answer for this quesiton is incorrect. The correct answer is 44. The reason being that since the whole group catches 140 fish, there will be 60 fish left. At' \

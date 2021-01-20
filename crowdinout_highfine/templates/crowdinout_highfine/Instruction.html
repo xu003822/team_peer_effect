@@ -7,7 +7,7 @@
 
 {% block scripts %}
 
-{% load static %}
+
 <script type="text\javascript" src="{% static 'crowdinout_highfine\pre_next_btn.js' %}"></script>
 
 {% endblock %}
@@ -15,7 +15,7 @@
 
 {% block styles %}
 
-<link  type=“text\css” href="{% static 'crowdinout_highfine\custom.css' %}" rel="stylesheet">
+<link href="{% static 'crowdinout_highfine\css\custom.css' %}" type="text/css" rel="stylesheet">
 
 {% endblock %}
 
@@ -74,6 +74,7 @@
 
 <p>Still unclear? Raise hand and the experimenter will come to you and personally explain to you. Otherwise please click "Tab2".</p>
 
+<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
 
   </div>
 
@@ -95,7 +96,9 @@
 
 {% formfield player.quiz2_all %}
 
-{% next_button %}
+<button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+  </div>
 
 
 {% endblock %}
