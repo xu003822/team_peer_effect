@@ -54,7 +54,7 @@ class Group(BaseGroup):
 
         #the following chooses the person who will be imposed a regulation
         if self.round_number in [Constants.num_rounds - 5, Constants.num_rounds - 4]:
-            self.audit = random.randint(1, 2)
+            self.audit = random.randint(1, 4)
             playeraudit = self.get_player_by_id(self.audit)
             self.auditplayer_extrac = playeraudit.extraction
             #self.audit_id =
@@ -63,14 +63,14 @@ class Group(BaseGroup):
 
         #the following is saying that only the person who is chosen to impose regulation will be randomly audited and have a fine
         for p in players:
-            if random.randint(1, 20) == 1 and p.extraction > 20 and self.round_number in [Constants.num_rounds - 4, Constants.num_rounds - 3] \
+            if random.randint(1, 10) == 1 and p.extraction > 20 and self.round_number in [Constants.num_rounds - 4, Constants.num_rounds - 3] \
                     and p.id_in_group == self.audit:
                 p.individual_fine = Constants.fine * (
                             p.extraction - 20)  # determining audited individual's fine and export to the page
                 p.payoff = p.extraction + self.individual_share - Constants.fine * (p.extraction - 20)
                 p.audit_or_not = 1
 
-            elif random.randint(1, 20) != 1 and p.extraction > 20 and self.round_number in [Constants.num_rounds - 4, Constants.num_rounds - 3] \
+            elif random.randint(1, 10) != 1 and p.extraction > 20 and self.round_number in [Constants.num_rounds - 4, Constants.num_rounds - 3] \
                     and p.id_in_group == self.audit:
                 p.individual_fine = 0
                 p.audit_or_not = 0

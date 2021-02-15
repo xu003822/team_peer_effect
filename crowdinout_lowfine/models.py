@@ -19,10 +19,10 @@ Your app description
 
 class Constants(BaseConstants):
     name_in_url = 'crowdinout_lowfine'
-    players_per_group = 2
-    num_rounds = 9
+    players_per_group = 4
+    num_rounds = 21
     multiplier = 2
-    fine = 2
+    fine = 10
     conversion = 0.1
     prac_rounds = 2
 
@@ -54,9 +54,9 @@ class Group(BaseGroup):
             self.individual_share = 200/Constants.players_per_group
 
         for p in players:
-
-            if random.randint(1, 2) == 1 and p.extraction > 20 and self.round_number in [Constants.num_rounds-3,
-                                                                                          Constants.num_rounds-4]:
+               #10% chance of getting a fine
+            if random.randint(1, 10) == 1 and p.extraction > 20 and self.round_number in [Constants.num_rounds-12,
+                                                                                          Constants.num_rounds-7]:
                 p.individual_fine = Constants.fine * (p.extraction - 20) #determining audited individual's fine and export to the page
                 p.payoff = p.extraction + self.individual_share - Constants.fine * (p.extraction - 20)
                 p.audit_or_not = 1
@@ -72,8 +72,8 @@ class Group(BaseGroup):
                 #p.act_payoff = p.acc_payoff * Constants.conversion
                 #p.actpar_payoff = p.act_payoff + self.session.config['participation_fee']
 
-            if self.round_number in [Constants.num_rounds - 4, Constants.num_rounds - 3]:
-                self.audit = random.randint(1, 2)
+            if self.round_number in [Constants.num_rounds - 12, Constants.num_rounds - 7]:
+                self.audit = random.randint(1, Constants.players_per_group)
                 playeraudit = self.get_player_by_id(self.audit)
                 self.auditplayer_extrac = playeraudit.extraction
                 self.audit_id = playeraudit.participant.vars['idnumber']
@@ -138,22 +138,22 @@ class Player(BasePlayer):
      #     label="what's others' average contribution in the last round")
       # Quiz QUESTIONS
       # Question 1
-      q1 = models.IntegerField(label="Your partner players in the game catch on average of 0 fish. Now how many fish you want to catch in this round?", min=0, max=40)
-      q2 = models.IntegerField(label="Your partner players in the game catch on average of 5 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q1 = models.IntegerField(label="Your partner players in the game caught on average of 0 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+      q2 = models.IntegerField(label="Your partner players in the game caught on average of 5 fish. Now how many fish you want to catch in this round?", min=0, max=40)
       q3 = models.IntegerField(
-          label="Your partner players in the game catch on average of 10 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+          label="Your partner players in the game caught on average of 10 fish. Now how many fish you want to catch in this round?", min=0, max=40)
       q4 = models.IntegerField(
-          label="Your partner players in the game catch on average of 15 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+          label="Your partner players in the game caught on average of 15 fish. Now how many fish you want to catch in this round?", min=0, max=40)
       q5 = models.IntegerField(
-          label="Your partner players in the game catch on average of 20 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+          label="Your partner players in the game caught on average of 20 fish. Now how many fish you want to catch in this round?", min=0, max=40)
       q6 = models.IntegerField(
-          label="Your partner players in the game catch on average of 25 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+          label="Your partner players in the game caught on average of 25 fish. Now how many fish you want to catch in this round?", min=0, max=40)
       q7 = models.IntegerField(
-          label="Your partner players in the game catch on average of 30 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+          label="Your partner players in the game caught on average of 30 fish. Now how many fish you want to catch in this round?", min=0, max=40)
       q8 = models.IntegerField(
-          label="Your partner players in the game catch on average of 35 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+          label="Your partner players in the game caught on average of 35 fish. Now how many fish you want to catch in this round?", min=0, max=40)
       q9 = models.IntegerField(
-          label="Your partner players in the game catch on average of 40 fish. Now how many fish you want to catch in this round?", min=0, max=40)
+          label="Your partner players in the game caught on average of 40 fish. Now how many fish you want to catch in this round?", min=0, max=40)
 
       quiz1_all = quiz1_question("1. Suppose you extract 20 fish this round and your group mates altogether extract 120 fish. How many fish you will get for this round?")
       quiz2_all = quiz2_question("2. Suppose you extract 40 fish this round and your group mates altogether extract 80 fish. How many fish you will get for this round?")

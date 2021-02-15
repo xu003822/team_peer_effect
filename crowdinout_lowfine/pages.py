@@ -94,22 +94,15 @@ class ResultsPractice(Page):
 
 class Fine_Instruction(Page):
     def is_displayed(self):
-        if self.round_number == (Constants.num_rounds - 4):
+        if self.round_number == (Constants.num_rounds - 12):
             return True
         else:
             return False
 
-    def vars_for_template(self):
-        round_numb = self.round_number - 1
-
-        return dict(
-            round_nm=round_numb
-            )
-
 class Revoke_Instruction(Page):
 
     def is_displayed(self):
-        if self.round_number == Constants.num_rounds - 2:
+        if self.round_number == Constants.num_rounds - 6:
             return True
         else:
             return False
@@ -120,7 +113,7 @@ class Contribute_first_page(Page):
     form_fields = ["extraction", "other_extra"]
 
     def is_displayed(self):
-        if self.round_number != 1 and self.round_number != 2:
+        if self.round_number not in [1, 2, Constants.num_rounds]:
             return True
         else:
             return False
@@ -138,7 +131,7 @@ class ResultsWaitPage(WaitPage):
 
 class Results(Page):
     def is_displayed(self):
-        if  self.round_number not in [2, Constants.num_rounds - 3, Constants.num_rounds - 4]:
+        if  self.round_number not in [2, Constants.num_rounds - 12, Constants.num_rounds - 7]:
             return True
         else:
             return False
@@ -147,7 +140,7 @@ class Results(Page):
 class Results_audited(Page):
     def is_displayed(self):
         #if the player gets audited and also the round is in the auditing round
-        if (self.round_number in [Constants.num_rounds - 3, Constants.num_rounds - 4]) and self.player.audit_or_not == 1:
+        if (self.round_number in [Constants.num_rounds - 12, Constants.num_rounds - 7]) and self.player.audit_or_not == 1:
             return True
         else:
             return False
@@ -155,7 +148,7 @@ class Results_audited(Page):
 class Results_notaudited(Page):
     def is_displayed(self):
         #if the player does not get audited and also the round is in the auditing round
-        if (self.round_number in [Constants.num_rounds - 3, Constants.num_rounds - 4]) and self.player.audit_or_not == 0:
+        if (self.round_number in [Constants.num_rounds - 12, Constants.num_rounds - 7]) and self.player.audit_or_not == 0:
             return True
         else:
             return False
@@ -165,7 +158,7 @@ class Questionaire(Page):
     form_fields = ["age", "gender", "income", "party", "strategy", "strategy_repeal"]
 
     def is_displayed(self):
-        if self.round_number == Constants.num_rounds:
+        if self.round_number == Constants.num_rounds-3:
             return True
         else:
             return False
@@ -174,7 +167,7 @@ class Questionaire(Page):
 class Final_Thank_you(Page):
     def vars_for_template(self):
         acc_profit = self.player.acc_payoff + self.participant.vars['lst_profit']
-        acc_dollar = acc_profit * Constants.conversion
+        acc_dollar = acc_profit.to_real_world_currency(self.session)
         return dict(
             acc_profit=acc_profit,
             acc_dollar=acc_dollar,
@@ -182,7 +175,7 @@ class Final_Thank_you(Page):
         )
 
     def is_displayed(self):
-        if self.round_number == Constants.num_rounds:
+        if self.round_number == Constants.num_rounds-1:
             return True
         else:
             return False
