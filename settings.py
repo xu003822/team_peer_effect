@@ -64,13 +64,13 @@ ROOMS = [
     #DEBUG = True
 
 ADMIN_USERNAME = 'admin'
-# for security, best to set admin password in an environment variable
-#ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+
+ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
 DEMO_PAGE_INTRO_HTML = """
 Here are some oTree games.
 """
-environ['OTREE_PRODUCTION'] = '1'
+#environ['OTREE_PRODUCTION'] = '1'
 
 # don't share this with anybody.
 SECRET_KEY = '-04aty%acnfw&pa*c7f2-hb+2fv57zcy4(pajjfs-t@n4jeqin'
