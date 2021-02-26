@@ -6,27 +6,27 @@ SESSION_CONFIGS = [
     dict(
         name='crowdinout_highfine',
         display_name='A public goods experiment with high fine',
-        num_demo_participants=4,
+        num_demo_participants=3,
         app_sequence=['crowdinout_highfine'],
     ),
 
     dict(
         name='crowdinout_lowfine',
         display_name='A public goods experiment with low fine',
-        num_demo_participants=4,
+        num_demo_participants=3,
         app_sequence=['crowdinout_lowfine'],
     ),
 
     dict(
         name='crowdinout_pressure',
         display_name='A public goods experiment with peer pressure',
-        num_demo_participants=4,
+        num_demo_participants=3,
         app_sequence=['crowdinout_pressure'],
     ),
     dict(
         name='crowdinout_social_influence',
         display_name='A public goods experiment testing social influence',
-        num_demo_participants=4,
+        num_demo_participants=3,
         app_sequence=['crowdinout_social_influence'],
     ),
 ]
