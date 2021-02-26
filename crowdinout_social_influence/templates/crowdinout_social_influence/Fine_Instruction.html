@@ -8,11 +8,12 @@
 
 {% block content %}
 <p>
-    As of now, you might realize that if everybody catches 20 fish, your group's aggregate earnings would be maximized, so is the average group earnings.
-    By catching over 20 fish, the fish will be caught too fast.
-    Therefore, at  the  beginning  of  this   round,  a regulation of maximum 20 fish may be imposed on you. Due to limited enforcement budget,
-    each round only one member of each group will be imposed a regulation and there is a 10% chance that this member will be audited and pay a
-    fine of 30 points for each unit of extra catch over the 20 fish.
+    As of now, you might realize that if everybody catches {{quota}} fish, your group's aggregate earnings would be maximized, so is the average group earnings.
+    By catching over {{quota}} fish, the fish will be caught too fast (the fish population in the lake will not be sustainable). This may result in fewer fish
+    for everyone.
+    Therefore, at  the  beginning  of  this   round,  a regulation of maximum {{quota}} fish may be imposed on you. Due to limited enforcement budget,
+    <b>each round only  one  member of each group will be imposed a regulation </b> and there is a {{Constants.prob_detect}} percent chance that this member will be audited
+    and pay a fine of {{Constants.fine}} points for each unit of extra catch over the {{quota}} fish.
 
 </p>
 

@@ -19,12 +19,15 @@ Your app description
 
 class Constants(BaseConstants):
     name_in_url = 'crowdinout_social_influence'
-    players_per_group = 2
-    num_rounds = 9
+    players_per_group = 3
     multiplier = 2
     fine = 10
-    conversion = 0.1
+    conversion = 0.04
     prac_rounds = 2
+    prob_detect = 10
+    rounds_interval = 6
+    num_rounds = 3 * rounds_interval + 3
+    fish_quota = 100/players_per_group
 
 
 class Subsession(BaseSubsession):
@@ -53,8 +56,8 @@ class Group(BaseGroup):
 
 
         #the following chooses the person who will be imposed a regulation
-        if self.round_number in [Constants.num_rounds - 5, Constants.num_rounds - 4]:
-            self.audit = random.randint(1, 4)
+        if self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval):
+            self.audit = random.randint(1, Constants.players_per_group)
             playeraudit = self.get_player_by_id(self.audit)
             self.auditplayer_extrac = playeraudit.extraction
             #self.audit_id =
@@ -63,14 +66,14 @@ class Group(BaseGroup):
 
         #the following is saying that only the person who is chosen to impose regulation will be randomly audited and have a fine
         for p in players:
-            if random.randint(1, 10) == 1 and p.extraction > 20 and self.round_number in [Constants.num_rounds - 4, Constants.num_rounds - 3] \
+            if random.randint(1, 10) == 1 and p.extraction > 20 and self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval) \
                     and p.id_in_group == self.audit:
                 p.individual_fine = Constants.fine * (
-                            p.extraction - 20)  # determining audited individual's fine and export to the page
-                p.payoff = p.extraction + self.individual_share - Constants.fine * (p.extraction - 20)
+                            p.extraction - Constants.fish_quota)  # determining audited individual's fine and export to the page
+                p.payoff = p.extraction + self.individual_share - Constants.fine * (p.extraction - Constants.fish_quota)
                 p.audit_or_not = 1
 
-            elif random.randint(1, 10) != 1 and p.extraction > 20 and self.round_number in [Constants.num_rounds - 4, Constants.num_rounds - 3] \
+            elif random.randint(1, Constants.prob_detect) != 1 and p.extraction > Constants.fish_quota and self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval)\
                     and p.id_in_group == self.audit:
                 p.individual_fine = 0
                 p.audit_or_not = 0
@@ -85,6 +88,7 @@ class Group(BaseGroup):
             if self.round_number > 2:
                 p.acc_payoff = p.participant.payoff - p.in_round(1).payoff - p.in_round(
                     2).payoff  # participant.payoff is the historical payoff
+                p.participant.vars['acc_payoff'] = p.acc_payoff
                 p.act_payoff = p.acc_payoff * Constants.conversion
                 p.actpar_payoff = p.act_payoff + self.session.config['participation_fee']
 
@@ -118,35 +122,42 @@ def quiz4_question(label):
         label = label
     )
 
-
-
 class Player(BasePlayer):
     id_number = models.IntegerField(label="Please enter your ID number here", min=0, max=40)
     acc_payoff = models.CurrencyField(label="The player's accumulative payoff is ")
     act_payoff = models.CurrencyField(label="The player's accumulative payoff in canadian dollar is")
     actpar_payoff = models.CurrencyField(label="The player's final payoff including the participation fee is")
     extraction = models.IntegerField(label="how many fish you decide to catch in this round", min=0, max=40)
-    individual_fine = models.IntegerField(label="The audited indiviudal's fine is ")
-    audit_or_not = models.IntegerField(label="The individual is audited or not and whether regulated or not")
     age = models.IntegerField(label="What's your age?")
     gender = models.StringField(label="What's your gender?",
                                 choices=["Male", "Female", "other", "Prefer not to say"]
                                 )
 
-    income = models.FloatField(label="What's your family income per year?")
+    income = models.FloatField(label="What's your family income per month?")
     party = models.StringField(label="Are you a member of the Chinese Community Party?",
                                choices=["Yes", "No", "Prefer not to say"]
                                )
-    strategy = models.StringField(
-        label="Did you change your contribution after the regulation is imposed? If yes, why? If no, why not?",
-        )
-    strategy_repeal = models.StringField(
-        label="Did you change your contribution after the regulation is repealed? If yes, why? If no, why not?",
-    )
 
     consent = models.BooleanField()  # Record participant's consent.
     # Quiz QUESTIONS
     # Question 1
+
+    q1 = models.IntegerField(label="", min=0, max=50)
+    q2 = models.IntegerField(label="", min=0, max=50)
+    q3 = models.IntegerField(
+        label="", min=0, max=50)
+    q4 = models.IntegerField(
+        label="", min=0, max=50)
+    q5 = models.IntegerField(
+        label="", min=0, max=50)
+    q6 = models.IntegerField(
+        label="", min=0, max=50)
+    q7 = models.IntegerField(
+        label="", min=0, max=50)
+    q8 = models.IntegerField(
+        label="", min=0, max=50)
+    q9 = models.IntegerField(
+        label="", min=0, max=50)
 
     quiz1_all = quiz1_question(
         "1. Suppose you extract 20 fish this round and your group mates altogether extract 120 fish. How many fish you will get for this round?")
@@ -159,7 +170,6 @@ class Player(BasePlayer):
         "2. Suppose you extract 80 fish this round and your group mates altogether extract 80 fish. How many fish you will get for this round?")
 
     def quiz1_all_error_message(self, quiz1_all):
-        self.participant.vars['quiz'] = 1
         if quiz1_all != 44:
             self.participant.vars['quiz'] = 0
             return 'Your answer for this quesiton is incorrect. The correct answer is 44. The reason being that since the whole group catches 140 fish, there will be 60 fish left. At' \

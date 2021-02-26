@@ -24,6 +24,8 @@
   {% endfor %}
 </table>
 -->
+<div class="card bg-light m-3">
+    <div class="card-body">
 <p>
     Your extraction is <b>{{player.extraction}}</b>.<br>
     Your group contributed <b>{{ group.tot_extraction }}</b>.<br>
@@ -31,12 +33,13 @@
     Your profit is therefore <b>{{ player.payoff }}</b>.
 </p>
 
-
 <p>
     In this round, the group member with a member ID  <b style="color:rgb(255,0,0);"> {{group.audit_id}} </b> is audited, and his/her extraction is:
     <b style="color:rgb(255,0,0);"> {{group.auditplayer_extrac}} </b>.
 
 </p>
+    </div>
+</div>
 
 
 {% next_button %}

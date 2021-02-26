@@ -36,6 +36,11 @@ class Instruction(Page):
         else:
             return False
 
+    def vars_for_template(self):
+        max_fish = int(200 / Constants.players_per_group)
+        return dict(
+            max_fishh=max_fish
+        )
 
 class Quiz(Page):
     form_model = 'player'
@@ -46,6 +51,11 @@ class Quiz(Page):
             return True
         else:
             return False
+    def vars_for_template(self):
+        max_fish = int(200/Constants.players_per_group)
+        return dict(
+            max_fishh = max_fish
+            )
 
 class Quiz2_1(Page):
     form_model = 'player'
@@ -75,6 +85,12 @@ class Practice(Page):
         else:
             return False
 
+    def vars_for_template(self):
+        max_fish = int(200/Constants.players_per_group)
+        return dict(
+            max_fishh = max_fish
+            )  # it seems you have to put the variables in a dictionary which contains all variables you send to the template
+
 class Practice2(Page):
     form_model = "player"
     form_fields = ["extraction"]
@@ -84,6 +100,11 @@ class Practice2(Page):
             return True
         else:
             return False
+    def vars_for_template(self):
+        max_fish = int(200/Constants.players_per_group)
+        return dict(
+            max_fishh = max_fish
+            )
 
 class ResultsPractice(Page):
     def is_displayed(self):
@@ -94,19 +115,29 @@ class ResultsPractice(Page):
 
 class Fine_Instruction(Page):
     def is_displayed(self):
-        if self.round_number == (Constants.num_rounds - 12):
+        if self.round_number == (Constants.num_rounds - 2*Constants.rounds_interval):
             return True
         else:
             return False
+    def vars_for_template(self):
+        quotta = int(100/Constants.players_per_group)
+        return dict(
+            quota = quotta,
+            )
 
 class Revoke_Instruction(Page):
 
     def is_displayed(self):
-        if self.round_number == Constants.num_rounds - 6:
+        if self.round_number == Constants.num_rounds - Constants.rounds_interval:
             return True
         else:
             return False
 
+    def vars_for_template(self):
+        quotta = int(100 / Constants.players_per_group)
+        return dict(
+            quota=quotta
+        )
 
 class Contribute_first_page(Page):
     form_model = "player"
@@ -120,27 +151,34 @@ class Contribute_first_page(Page):
 
     def vars_for_template(self):
         round_numb = self.round_number - 2
-
+        max_fish = int(200/Constants.players_per_group)
         return dict(
-            round_nm=round_numb
+            round_nm=round_numb,
+            max_fishh = max_fish
             )  # it seems you have to put the variables in a dictionary which contains all variables you send to the template
 
 
 class ResultsWaitPage(WaitPage):
     after_all_players_arrive = 'set_payoff'
-
-class Results(Page):
     def is_displayed(self):
-        if  self.round_number not in [2, Constants.num_rounds - 12, Constants.num_rounds - 7]:
+        if self.round_number != Constants.num_rounds:
             return True
         else:
             return False
+
+class Results(Page):
+    def is_displayed(self):
+        if  self.round_number == 2 or (self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval)) \
+                or self.round_number == Constants.num_rounds:
+            return False
+        else:
+            return True
 #(self.round_number not in [Constants.num_rounds - 3, Constants.num_rounds - 4]) or
 
 class Results_audited(Page):
     def is_displayed(self):
         #if the player gets audited and also the round is in the auditing round
-        if (self.round_number in [Constants.num_rounds - 12, Constants.num_rounds - 7]) and self.player.audit_or_not == 1:
+        if (self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval)) and self.player.audit_or_not == 1:
             return True
         else:
             return False
@@ -148,7 +186,7 @@ class Results_audited(Page):
 class Results_notaudited(Page):
     def is_displayed(self):
         #if the player does not get audited and also the round is in the auditing round
-        if (self.round_number in [Constants.num_rounds - 12, Constants.num_rounds - 7]) and self.player.audit_or_not == 0:
+        if (self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval)) and self.player.audit_or_not == 0:
             return True
         else:
             return False
@@ -158,27 +196,26 @@ class Questionaire(Page):
     form_fields = ["age", "gender", "income", "party", "strategy", "strategy_repeal"]
 
     def is_displayed(self):
-        if self.round_number == Constants.num_rounds-3:
+        if self.round_number == Constants.num_rounds:
             return True
         else:
             return False
 
-
 class Final_Thank_you(Page):
     def vars_for_template(self):
-        acc_profit = self.player.acc_payoff + self.participant.vars['lst_profit']
+        acc_profit = self.participant.vars['acc_payoff'] + self.participant.vars['lst_profit']
         acc_dollar = acc_profit.to_real_world_currency(self.session)
         return dict(
             acc_profit=acc_profit,
             acc_dollar=acc_dollar,
             acc_final = acc_dollar + self.session.config['participation_fee']
         )
-
     def is_displayed(self):
-        if self.round_number == Constants.num_rounds-1:
+        if self.round_number == Constants.num_rounds:
             return True
         else:
             return False
+
 
 class contribution_table(Page):
     form_model = "player"
@@ -189,6 +226,13 @@ class contribution_table(Page):
             return True
         else:
             return False
+
+    def vars_for_template(self):
+        max_fish = int(200 / Constants.players_per_group)
+        return dict(
+            max_fishh=max_fish
+        )
+
 
 class Results_LastRound(Page):
     def is_displayed(self):

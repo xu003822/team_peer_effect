@@ -7,13 +7,18 @@
 
 
 {% block content %}
+<div class="card bg-light m-3">
+    <div class="card-body">
 <p>
-As of now, you might realize that if everybody catches 20 fish, your group aggregate earnings would be maximized, so is the average group earnings.
-    Therefore, at  the  beginning  of  this round {{round_nm}},  a regulation is introduced where the maximum allowable catch is 20 fish.
-     By catching over 20 fish, the fish will be caught too fast.
-    To enforce this regulation, there is a 5% chance that a player will be randomly
-    audited and pay a fine of 10 points for each unit of extraction over the 20 fish.
+    As of now, you might realize that if everybody catches {{quota}} fish, your group's aggregate (and average) earnings would be maximized.
+    Therefore, at  the  beginning  of  this round,  a regulation is introduced where the maximum allowable catch is {{quota}} fish.
+    By catching over {{quota}} fish, the fish will be caught too fast (the fish population in the lake will not be sustainable). This may result in fewer fish
+    for everyone.
+    <b>To enforce this regulation, there is a {{Constants.prob_detect}} percent chance that a player will be randomly
+    audited and have to pay a fine of {{Constants.fine}} points for each unit of catch over the {{quota}} fish</b>.
 </p>
+    </div>
+</div>
 
 {% next_button %}
 

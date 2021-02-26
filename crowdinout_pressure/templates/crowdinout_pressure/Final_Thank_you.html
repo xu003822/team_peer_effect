@@ -10,16 +10,22 @@
         // Clears the local storage from the Comp Check Question Page timer.
         localStorage.removeItem('saved_countdown');
     </script>
-    
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+
     <p>
-        Thank you for your participation! Your total points accumulated over the rounds are {{player.acc_payoff}}, which is worth {{player.act_payoff}}. Your total
-        payoff including your participation fee would then be {{acc_profit}}
+        Thank you for your participation! You have earned a total of <b>{{acc_profit}}</b>, which is worth <b>{{acc_dollar}}</b>. Your total
+        payoff, including your participation fee, would then be <b>{{acc_final}}</b>.
 
     </p>
     <p>
-        You may now leave! Please report your participation code to the experimenter and receive the money.
+        You may now leave! Please report your assigned ID to the experimenter and receive the money.
+        If you have any questions after the experiment, please contact Botao Qin at 801-422-1969 or bqin@xjtu.edu.cn.
     </p>
-    <p>
 
-    </p>
+    </div>
+</div>
+
+
 {% endblock %}

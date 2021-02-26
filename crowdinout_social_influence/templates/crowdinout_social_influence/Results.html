@@ -6,34 +6,41 @@
 {% endblock %}
 
 {% block content %}
-<!--
-<p>
-    Below are the extraction level for each group member:<br>
+<!--<p>
+    Below are the extraction level for you and your groupmates:<br>
 </p>
 
 <table class="table">
   <tr>
       <th>Player</th>
-      <th>Payoff</th>
+      <th>Extraction</th>
   </tr>
+
+  <tr>
+          <td> your extraction </td>
+          <td>{{ player.extraction }}</td>
+  </tr>
+
   {% for other_player in group.get_players %}
       <tr>
           <td>{{ other_player.id_in_group }}</td>
           <td>{{ other_player.extraction }}</td>
-      </tr>
-  {% endfor %}
-</table>
--->
-<p>
-    Your extraction is <b>{{player.extraction}}</b>,<br>
-    Your group contributed <b>{{ group.tot_extraction }}</b>,<br>
-    At the end of this round, each individual gets an extra fish catch of <b>{{ group.individual_share }}</b>.<br>
-    Your profit is therefore <b>{{ player.payoff }}</b>.
-</p>
 
+  {% endfor %}
+  </tr>
+</table>-->
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p>
+    Your catch is <b>{{player.extraction}}</b>.<br>
+    Your group's total catch is <b>{{ group.tot_extraction }}</b>.<br>
+    At the end of this round, each individual gets an extra fish catch of <b>{{ group.individual_share }}</b>.<br>
+    Your profit in this round is therefore <b>{{ player.payoff }}</b>.
+</p>
+    </div>
+</div>
 
 {% next_button %}
-
 
 {% endblock %}
 

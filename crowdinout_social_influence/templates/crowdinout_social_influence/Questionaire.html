@@ -8,6 +8,7 @@
 
 {% block content %}
 Now the game is over. Please complete the following survey questions:
+<br>
 
 Question 1
 {% formfield player.age %}
@@ -21,11 +22,6 @@ Question 3
 Question 4
 {% formfield player.party %}
 
-Question 5
-{% formfield player.strategy %}
-
-Question 6
-{% formfield player.strategy_repeal %}
 
 Click "next" to submit.
 {% next_button %}

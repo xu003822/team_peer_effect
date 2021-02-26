@@ -2,21 +2,29 @@
 {% load otree static %}
 
 {% block title %}
-   Contribution Round_{{round_nm}}
+   Contribution_Round {{round_nm}}
 {% endblock %}
 
 {% block content %}
+
+
 <p>
     Your group of
     {{ Constants.players_per_group }} players share a fishery resource of 200 fish. In this round, each group member decides how many fish
-    between 0 and 40 to catch. At the end of the round, the number of fish doubles, up to the lake's
-    capacity of 200 fish and is divided equally among the group members. Please enter the number of fish you would like to catch in this round. The image below might help you understand your group's situation.
+    between 0 and {{max_fishh}} to catch. At the end of the round, the number of fish doubles, up to the lake's
+    capacity of 200 fish and is divided equally among the group members. Please enter the number of fish you would like to catch in this round.
+    The image below might help you understand your group's situation.
 </p>
 
-{% load static %} <img src="{% static "fish.PNG" %}" alt="Hi!" style="width: 80%;height: 80%;"/>
-<!--note that heroku is case sensitive, the image name must be exactly the same as the one you stored here-->
 
-{% formfields %}
+
+{% load static %} <img src="{% static "fish.PNG" %}" alt="Hi!" style="width: 80%;height: 80%;"/>
+
+<!--<script type="text\javascript" src="{% static 'crowdinout_social_influence\pre_next_btn.js' %}"></script>-->
+
+{% formfield player.extraction %}
+
+{% formfield player.other_extra %}
 
 {% next_button %}
 

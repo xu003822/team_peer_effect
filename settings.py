@@ -47,6 +47,7 @@ LANGUAGE_CODE = 'en'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'CNY'
 USE_POINTS = True
+POINTS_CUSTOM_NAME = '分'
 
 ROOMS = [
     dict(

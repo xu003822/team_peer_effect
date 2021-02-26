@@ -6,19 +6,19 @@
 {% endblock %}
 
 {% block content %}
-<p>In this round, group member with ID number <b style="color:rgb(255,0,0);"> {{session.vars.idd}} </b>
-    are subject to a regulation. </p>
 <p>
     Your group of
     {{ Constants.players_per_group }} players share a fishery resource of 200 fish. In this round, each group member decides how many fish
-    between 0 and 40 to catch. At the end of the round, the number of fish doubles, up to the lake's
+    between 0 and {{max_fishh}} to catch. At the end of the round, the number of fish doubles, up to the lake's
     capacity of 200 fish and is divided equally among the group members. The image below might help you understand your group's situation.
-Please enter the number of fish you would like to catch in this round.</p>
+</p>
 
 {% load static %} <img src="{% static "fish.PNG" %}" alt="Hi!" style="width: 80%;height: 80%;"/>
 <!--note that heroku is case sensitive, the image name must be exactly the same as the one you stored here-->
 
 
+<p>In this round, group member with ID number <b style="color:rgb(255,0,0);"> {{session.vars.idd}} </b>
+    is subject to the regulation. </p>
 
 {% formfields %}
 
