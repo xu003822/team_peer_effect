@@ -96,6 +96,7 @@ class Practice2(Page):
             return True
         else:
             return False
+
     def vars_for_template(self):
         max_fish = int(200/Constants.players_per_group)
         return dict(
@@ -118,7 +119,7 @@ class Fine_Instruction(Page):
 
 class regulation_audit(Page):
     form_model = "player"
-    form_fields = ["extraction"]
+    form_fields =  ["extraction", "other_extra"]
 
     def is_displayed(self):
         #if the player does not get audited and also the round is in the auditing round
@@ -128,8 +129,12 @@ class regulation_audit(Page):
             return False
 
     def vars_for_template(self):
+        import random
         round_numb = self.round_number - 2
         max_fish = int(200 / Constants.players_per_group)
+
+        self.session.vars['idd'] = random.randint(1, Constants.players_per_group)
+
 
         return dict(
             round_nm=round_numb,
@@ -147,7 +152,7 @@ class Revoke_Instruction(Page):
 
 class Contribute_first_page(Page):
     form_model = "player"
-    form_fields = ["extraction"]
+    form_fields = ["extraction", "other_extra"]
 
     def is_displayed(self):
         if  self.round_number in [1, 2, Constants.num_rounds] or (self.round_number in
@@ -158,10 +163,12 @@ class Contribute_first_page(Page):
 
     def vars_for_template(self):
         round_numb = self.round_number - 2
-
+        max_fish = int(200 / Constants.players_per_group)
         return dict(
-            round_nm=round_numb
-            )  # it seems you have to put the variables in a dictionary which contains all variables you send to the template
+            round_nm=round_numb,
+            max_fishh=max_fish
+        )  # it seems you have to put the variables in a dictionary which contains all variables you send to the template
+
 
 class Results_audited(Page):
     def is_displayed(self):
@@ -232,7 +239,11 @@ class Final_Thank_you(Page):
             acc_dollar=acc_dollar,
             acc_final = acc_dollar + self.session.config['participation_fee']
         )
-
+    def is_displayed(self):
+        if self.round_number == Constants.num_rounds:
+            return True
+        else:
+            return False
 
 class contribution_table(Page):
     form_model = "player"

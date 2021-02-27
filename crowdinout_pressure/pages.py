@@ -196,7 +196,11 @@ class Final_Thank_you(Page):
             acc_dollar=acc_dollar,
             acc_final = acc_dollar + self.session.config['participation_fee']
         )
-
+    def is_displayed(self):
+        if self.round_number == Constants.num_rounds:
+            return True
+        else:
+            return False
 
 class contribution_table(Page):
     form_model = "player"

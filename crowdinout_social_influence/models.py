@@ -56,25 +56,25 @@ class Group(BaseGroup):
 
 
         #the following chooses the person who will be imposed a regulation
-        if self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval):
-            self.audit = random.randint(1, Constants.players_per_group)
-            playeraudit = self.get_player_by_id(self.audit)
-            self.auditplayer_extrac = playeraudit.extraction
+        #if self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval):
+           # self.audit = random.randint(1, Constants.players_per_group)
+           # playeraudit = self.get_player_by_id(self.audit)
+           # self.auditplayer_extrac = playeraudit.extraction
             #self.audit_id =
             #the session.vars store a global variable
-            self.session.vars['idd'] = playeraudit.participant.vars['idnumber']
+           # self.session.vars['idd'] = playeraudit.participant.vars['idnumber']
 
         #the following is saying that only the person who is chosen to impose regulation will be randomly audited and have a fine
         for p in players:
-            if random.randint(1, 10) == 1 and p.extraction > 20 and self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval) \
-                    and p.id_in_group == self.audit:
+            if random.randint(1, Constants.prob_detect) == 1 and p.extraction > 20 and self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval) \
+                    and p.participant.vars['idnumber'] == self.session.vars['idd']:
                 p.individual_fine = Constants.fine * (
                             p.extraction - Constants.fish_quota)  # determining audited individual's fine and export to the page
                 p.payoff = p.extraction + self.individual_share - Constants.fine * (p.extraction - Constants.fish_quota)
                 p.audit_or_not = 1
 
             elif random.randint(1, Constants.prob_detect) != 1 and p.extraction > Constants.fish_quota and self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval)\
-                    and p.id_in_group == self.audit:
+                    and p.participant.vars['idnumber'] == self.session.vars['idd']:
                 p.individual_fine = 0
                 p.audit_or_not = 0
                 p.payoff = p.extraction + self.individual_share
@@ -123,11 +123,15 @@ def quiz4_question(label):
     )
 
 class Player(BasePlayer):
-    id_number = models.IntegerField(label="Please enter your ID number here", min=0, max=40)
+    id_number = models.IntegerField(label="Please enter your ID number here", min=0, max=300)
     acc_payoff = models.CurrencyField(label="The player's accumulative payoff is ")
     act_payoff = models.CurrencyField(label="The player's accumulative payoff in canadian dollar is")
     actpar_payoff = models.CurrencyField(label="The player's final payoff including the participation fee is")
-    extraction = models.IntegerField(label="how many fish you decide to catch in this round", min=0, max=40)
+    extraction = models.IntegerField(label="How many fish you decide to catch in this round", min=0, max=50)
+    other_extra = models.IntegerField(
+        label="Please also enter your expectation of the average catch of other group members", min=0, max=50)
+    individual_fine = models.IntegerField(label="The audited indiviudal's fine is ")
+    audit_or_not = models.IntegerField(label="The individual is audited or not")
     age = models.IntegerField(label="What's your age?")
     gender = models.StringField(label="What's your gender?",
                                 choices=["Male", "Female", "other", "Prefer not to say"]
@@ -137,7 +141,12 @@ class Player(BasePlayer):
     party = models.StringField(label="Are you a member of the Chinese Community Party?",
                                choices=["Yes", "No", "Prefer not to say"]
                                )
-
+    strategy = models.StringField(
+        label="Did you change your contribution after the regulation was imposed? If yes, why? If no, why not?",
+        )
+    strategy_repeal = models.StringField(
+        label="Did you change your contribution after the regulation was repealed? If yes, why? If no, why not?",
+    )
     consent = models.BooleanField()  # Record participant's consent.
     # Quiz QUESTIONS
     # Question 1
