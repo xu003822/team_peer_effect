@@ -16,11 +16,11 @@ This is a one-period public goods game with 3 players.
 
 
 class Constants(BaseConstants):
-    name_in_url = 'public_goods'
+    name_in_url = 'public_goods_individual_treatment'
     players_per_group = 3
     num_rounds = 1
 
-    instructions_template = 'public_goods/instructions.html'
+    instructions_template = 'public_goods_individual_treatment/instructions.html'
 
     # """Amount allocated to each player"""
     endowment = c(100)
@@ -65,3 +65,20 @@ class Player(BasePlayer):
         min=0, max=Constants.endowment, doc="""The amount contributed by the player""",
         label="How much will you contribute to the project (from 0 to 100)?"
     )
+
+def quiz1_question(label):
+    return models.IntegerField(
+        choices = [14, 20, 24, 30],
+        widget = widgets.RadioSelect,
+        label = label
+    )
+
+def quiz2_question(label):
+    return models.IntegerField(
+        choices = [4, 6, 12, 20],
+        widget = widgets.RadioSelect,
+        label = label
+    )
+
+quiz1_all = quiz1_question("1. Suppose you contribute 10 tokens in this round and your group mates altogether contribute 30 tokens. How many tokens you will get at the end of this round?")
+quiz2_all = quiz2_question("2. Suppose you contribute 20 tokens in this round and your group mates altogether contribute 40 tokens. How many tokens you will get at the end of this round?")

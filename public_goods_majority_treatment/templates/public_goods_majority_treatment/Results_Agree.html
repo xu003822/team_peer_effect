@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p>In this decision, your team reached an agreement of contributing {{player.participant.vars.contri}}.
+</p>
+    </div>
+</div>
+
+{% next_button %}
+
+{% endblock %}
+
+

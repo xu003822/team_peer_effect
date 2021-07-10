@@ -4,31 +4,24 @@ STATIC_URL = '/static/'
 
 SESSION_CONFIGS = [
     dict(
-        name='crowdinout_highfine',
-        display_name='A public goods experiment with high fine',
-        num_demo_participants=3,
-        app_sequence=['crowdinout_highfine'],
-    ),
-
-    dict(
-        name='crowdinout_lowfine',
-        display_name='A public goods experiment with low fine',
-        num_demo_participants=3,
-        app_sequence=['crowdinout_lowfine'],
-    ),
-
-    dict(
-        name='crowdinout_pressure',
-        display_name='A public goods experiment with peer pressure',
-        num_demo_participants=3,
-        app_sequence=['crowdinout_pressure'],
+        name='public_goods_team',
+        display_name='A public goods experiment',
+        num_demo_participants=4,
+        app_sequence=['public_goods_indivdiual_treatment'],
     ),
     dict(
-        name='crowdinout_social_influence',
-        display_name='A public goods experiment testing social influence',
-        num_demo_participants=3,
-        app_sequence=['crowdinout_social_influence'],
+        name='public_goods_team',
+        display_name='A public goods experiment',
+        num_demo_participants=12,
+        app_sequence=['public_goods_majority_treatment'],
     ),
+    dict(
+        name='public_goods_team',
+        display_name='A public goods experiment',
+        num_demo_participants=12,
+        app_sequence=['public_goods_random_ballot'],
+    )
+    ,
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -45,9 +38,9 @@ SESSION_CONFIG_DEFAULTS = dict(
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'CNY'
+#REAL_WORLD_CURRENCY_CODE = 'CNY'
 USE_POINTS = True
-POINTS_CUSTOM_NAME = '分'
+#POINTS_CUSTOM_NAME = '分'
 
 ROOMS = [
     dict(

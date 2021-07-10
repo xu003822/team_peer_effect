@@ -52,9 +52,10 @@ class Group(BaseGroup):
         extractions = [p.extraction for p in players]
         self.tot_extraction = sum(extractions)
         if (200 - self.tot_extraction) * Constants.multiplier < 200:
-            self.individual_share = (200 - self.tot_extraction) * Constants.multiplier / Constants.players_per_group
+            self.individual_share = round(
+                (200 - self.tot_extraction) * Constants.multiplier / Constants.players_per_group)
         else:
-            self.individual_share = 200 / Constants.players_per_group
+            self.individual_share = round(200 / Constants.players_per_group)
 
         for p in players:
             # 10% chance of getting a fine
@@ -62,10 +63,9 @@ class Group(BaseGroup):
                     100 / Constants.players_per_group) and self.round_number in range(
                     Constants.num_rounds - 2 * Constants.rounds_interval,
                     Constants.num_rounds - Constants.rounds_interval):
-                p.individual_fine = Constants.fine * (p.extraction - (
-                            100 / Constants.players_per_group))  # determining audited individual's fine and export to the page
-                p.payoff = p.extraction + self.individual_share - Constants.fine * (
-                            p.extraction - (100 / Constants.players_per_group))
+                p.individual_fine = int(Constants.fine * (p.extraction - (
+                            100 / Constants.players_per_group)))  # determining audited individual's fine and export to the page
+                p.payoff = p.extraction + self.individual_share - p.individual_fine
                 p.audit_or_not = 1
             else:
                 p.individual_fine = 0
@@ -133,7 +133,9 @@ class Player(BasePlayer):
     gender = models.StringField(label="What's your gender?",
                                 choices=["Male", "Female", "other", "Prefer not to say"]
                                 )
-
+    major = models.StringField(
+        label="What's your major?"
+    )
     income = models.FloatField(label="What's your family income per month?")
     party = models.StringField(label="Are you a member of the Chinese Community Party?",
                                choices=["Yes", "No", "Prefer not to say"]

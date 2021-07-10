@@ -179,7 +179,7 @@ class Results_pressure(Page):
 
 class Questionaire(Page):
     form_model = "player"
-    form_fields = ["age", "gender", "income", "party", "strategy", "strategy_repeal"]
+    form_fields = ["age", "gender", "major", "income", "party", "strategy", "strategy_repeal"]
 
     def is_displayed(self):
         if self.round_number == Constants.num_rounds:
@@ -261,9 +261,9 @@ class Results_LastRound(Page):
         tot_choice = self.participant.vars['other_choice'] * (Constants.players_per_group-1) + self.participant.vars['condi_choice']
 
         if (200 - tot_choice) * Constants.multiplier < 200:
-            ind_share = (200 - tot_choice) * Constants.multiplier / Constants.players_per_group
+            ind_share = round((200 - tot_choice) * Constants.multiplier / Constants.players_per_group)
         else:
-            ind_share = 200 / Constants.players_per_group
+            ind_share = round(200 / Constants.players_per_group)
 
         last_profit = self.participant.vars['condi_choice'] + ind_share
         self.participant.vars['lst_profit'] = last_profit

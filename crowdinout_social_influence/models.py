@@ -27,7 +27,7 @@ class Constants(BaseConstants):
     prob_detect = 10
     rounds_interval = 6
     num_rounds = 3 * rounds_interval + 3
-    fish_quota = 100/players_per_group
+    fish_quota = round(100/players_per_group)
 
 
 class Subsession(BaseSubsession):
@@ -39,10 +39,18 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
     tot_extraction = models.IntegerField(label="The group's total catch is ")
-    individual_share = models.FloatField(label="At the end of the round, each of you gets extra amount fish of")
+    individual_share = models.IntegerField(label="At the end of the round, each of you gets extra amount fish of")
     audit = models.IntegerField(label="The person who is randomly audit is player number")
     auditplayer_extrac = models.IntegerField(label="The audited individual's catch is")
     #audit_id = models.IntegerField(label="The audited player's id is")
+
+    def random_select(self):
+        import random
+        self.audit = random.randint(1, Constants.players_per_group)
+        playeraudit = self.get_player_by_id(self.audit)
+
+        #the session.vars store a global variable
+        self.session.vars['idd'] = playeraudit.participant.vars['idnumber']
 
     def set_payoff(self):
         import random
@@ -50,9 +58,9 @@ class Group(BaseGroup):
         extractions = [p.extraction for p in players]
         self.tot_extraction = sum(extractions)
         if (200-self.tot_extraction) * Constants.multiplier < 200:
-            self.individual_share = (200 - self.tot_extraction) * Constants.multiplier / Constants.players_per_group
+            self.individual_share = round((200 - self.tot_extraction) * Constants.multiplier / Constants.players_per_group)
         else:
-            self.individual_share = 200/Constants.players_per_group
+            self.individual_share = round(200/Constants.players_per_group)
 
 
         #the following chooses the person who will be imposed a regulation
@@ -66,23 +74,30 @@ class Group(BaseGroup):
 
         #the following is saying that only the person who is chosen to impose regulation will be randomly audited and have a fine
         for p in players:
-            if random.randint(1, Constants.prob_detect) == 1 and p.extraction > 20 and self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval) \
-                    and p.participant.vars['idnumber'] == self.session.vars['idd']:
-                p.individual_fine = Constants.fine * (
-                            p.extraction - Constants.fish_quota)  # determining audited individual's fine and export to the page
-                p.payoff = p.extraction + self.individual_share - Constants.fine * (p.extraction - Constants.fish_quota)
-                p.audit_or_not = 1
+            p.payoff = p.extraction + self.individual_share
 
-            elif random.randint(1, Constants.prob_detect) != 1 and p.extraction > Constants.fish_quota and self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval)\
-                    and p.participant.vars['idnumber'] == self.session.vars['idd']:
-                p.individual_fine = 0
-                p.audit_or_not = 0
-                p.payoff = p.extraction + self.individual_share
+            if self.round_number \
+                    in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval):
+                if random.randint(1, Constants.prob_detect) == 1 \
+                         and p.participant.vars['idnumber'] == self.session.vars['idd']:
+                    p.audit_or_not = 1
+                    if p.extraction > Constants.fish_quota:
+                        p.individual_fine = int(Constants.fine * (
+                                p.extraction - Constants.fish_quota))  # determining audited individual's fine and export to the page
+                        p.payoff = p.extraction + self.individual_share - p.individual_fine
 
-            else:
-                p.individual_fine = 0
-                p.audit_or_not = 2 #the subject is not subject to regulation
-                p.payoff = p.extraction + self.individual_share
+                    else:
+                        p.individual_fine = 0
+                        p.payoff = p.extraction + self.individual_share
+
+                elif random.randint(1, Constants.prob_detect) != 1 \
+                        and p.participant.vars['idnumber'] == self.session.vars['idd']:
+                    p.audit_or_not = 0
+                    p.payoff = p.extraction + self.individual_share
+
+                elif p.participant.vars['idnumber'] != self.session.vars['idd']:
+                     p.audit_or_not = 2 #the subject is not subject to regulation
+                     p.payoff = p.extraction + self.individual_share
 
         for p in players:
             if self.round_number > 2:
@@ -136,7 +151,9 @@ class Player(BasePlayer):
     gender = models.StringField(label="What's your gender?",
                                 choices=["Male", "Female", "other", "Prefer not to say"]
                                 )
-
+    major = models.StringField(
+        label="What's your major?"
+    )
     income = models.FloatField(label="What's your family income per month?")
     party = models.StringField(label="Are you a member of the Chinese Community Party?",
                                choices=["Yes", "No", "Prefer not to say"]

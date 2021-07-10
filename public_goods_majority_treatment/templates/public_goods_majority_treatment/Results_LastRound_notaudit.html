@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+<p>In this game, your team's final payoff depends on the decision made in round 1. In round 1,
+    your team decided to contribute {{participant.vars.first_round_contri}}.
+    Thus the results  are:
+</p>
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p>
+    Your team contributed: <b>{{participant.vars.first_round_contri}}</b>.<br>
+    The total contribution to the POOL: <b>{{ group.tot_contri }}</b>.<br>
+    Your team earnings from the POOL: <b>{{ group.individual_share }}</b>.<br>
+    Your team's profit in the game is therefore <b>{{ player.payoff }}</b>.<br>
+    Your profit in the game is therefore <b>{{ player.payoff }}</b>.
+</p>
+    </div>
+</div>
+
+{% next_button %}
+
+{% endblock %}
+
+

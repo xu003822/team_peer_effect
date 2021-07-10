@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Quiz
+{% endblock %}
+
+
+{% block content %}
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p>
+Before you begin, please answer the following questions to ensure that you understand the instructions.
+</p>
+    </div>
+</div>
+
+{% formfield player.quiz1_all %}
+
+{% formfield player.quiz2_all %}
+
+{% next_button %}
+
+{% endblock %}

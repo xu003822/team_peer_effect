@@ -1,0 +1,22 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p> Please wait for other teams to finish their decisions. Other teams haven't made their decisions yet. Click next to see if the waiting is over.
+    If you still see the same page after you click "Next". That means other teams haven't yet reached a decision.
+</p>
+    </div>
+</div>
+
+{% next_button %}
+
+{% endblock %}
+
+

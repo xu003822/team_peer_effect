@@ -50,9 +50,9 @@ class Group(BaseGroup):
         extractions = [p.extraction for p in players]
         self.tot_extraction = sum(extractions)
         if (200 - self.tot_extraction) * Constants.multiplier < 200:
-            self.individual_share = (200 - self.tot_extraction) * Constants.multiplier / Constants.players_per_group
+            self.individual_share = round((200 - self.tot_extraction) * Constants.multiplier / Constants.players_per_group)
         else:
-            self.individual_share = 200 / Constants.players_per_group
+            self.individual_share = round(200 / Constants.players_per_group)
 
         for p in players:
             p.payoff = p.extraction + self.individual_share
@@ -121,6 +121,9 @@ class Player(BasePlayer):
     party = models.StringField(label="Are you a member of the Chinese Community Party?",
                                choices=["Yes", "No", "Prefer not to say"]
                                )
+    major = models.StringField(
+        label="What's your major?"
+    )
     strategy = models.StringField(
         label="Did you change your contribution after the regulation was imposed? If yes, why? If no, why not?",
         )

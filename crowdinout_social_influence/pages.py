@@ -34,9 +34,12 @@ class Instruction(Page):
 
     def vars_for_template(self):
         max_fish = int(200 / Constants.players_per_group)
+
         return dict(
             max_fishh=max_fish
         )
+
+
 
 class Quiz(Page):
     form_model = 'player'
@@ -117,9 +120,21 @@ class Fine_Instruction(Page):
             quota = quotta
             )
 
+class MyWaitPage(WaitPage):
+    after_all_players_arrive = 'random_select'
+    def is_displayed(self):
+        #if the player does not get audited and also the round is in the auditing round
+        if  self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval):
+            return True
+        else:
+            return False
+
+
 class regulation_audit(Page):
     form_model = "player"
-    form_fields =  ["extraction", "other_extra"]
+    form_fields = ["extraction", "other_extra"]
+
+
 
     def is_displayed(self):
         #if the player does not get audited and also the round is in the auditing round
@@ -129,12 +144,8 @@ class regulation_audit(Page):
             return False
 
     def vars_for_template(self):
-        import random
         round_numb = self.round_number - 2
         max_fish = int(200 / Constants.players_per_group)
-
-        self.session.vars['idd'] = random.randint(1, Constants.players_per_group)
-
 
         return dict(
             round_nm=round_numb,
@@ -173,7 +184,9 @@ class Contribute_first_page(Page):
 class Results_audited(Page):
     def is_displayed(self):
         #if the player gets audited and also the round is in the auditing round
-        if (self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval)) and self.player.audit_or_not == 1:
+        if (self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds -
+                                                                                           Constants.rounds_interval)) \
+                and self.player.audit_or_not == 1:
             return True
         else:
             return False
@@ -182,7 +195,9 @@ class Results_audited(Page):
 class Results_notaudited(Page):
     def is_displayed(self):
         #if the player does not get audited and also the round is in the auditing round
-        if (self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval)) and self.player.audit_or_not == 0:
+        if (self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds -
+                                                                                           Constants.rounds_interval)) \
+                and self.player.audit_or_not == 0:
             return True
         else:
             return False
@@ -205,14 +220,17 @@ class ResultsPractice(Page):
 
 class Results_noreg(Page):
     def is_displayed(self):
-        if  self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval) and self.player.audit_or_not == 2:
+        if  self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds -
+                                                                                           Constants.rounds_interval) \
+                and self.player.audit_or_not == 2:
             return True
         else:
             return False
 
 class Results(Page):
     def is_displayed(self):
-        if  self.round_number == 2 or (self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval, Constants.num_rounds - Constants.rounds_interval)) \
+        if  self.round_number == 2 or (self.round_number in range(Constants.num_rounds - 2*Constants.rounds_interval,
+                                                                  Constants.num_rounds - Constants.rounds_interval)) \
                 or self.round_number == Constants.num_rounds:
             return False
         else:
@@ -222,7 +240,7 @@ class Results(Page):
 
 class Questionaire(Page):
     form_model = "player"
-    form_fields = ["age", "gender", "income", "party"]
+    form_fields = ["age", "gender", "major", "income", "party", "strategy", "strategy_repeal"]
 
     def is_displayed(self):
         if self.round_number == Constants.num_rounds:
@@ -304,9 +322,9 @@ class Results_LastRound(Page):
         tot_choice = self.participant.vars['other_choice'] * (Constants.players_per_group-1) + self.participant.vars['condi_choice']
 
         if (200 - tot_choice) * Constants.multiplier < 200:
-            ind_share = (200 - tot_choice) * Constants.multiplier / Constants.players_per_group
+            ind_share = round((200 - tot_choice) * Constants.multiplier / Constants.players_per_group)
         else:
-            ind_share = 200 / Constants.players_per_group
+            ind_share = round(200 / Constants.players_per_group)
 
         last_profit = self.participant.vars['condi_choice'] + ind_share
         self.participant.vars['lst_profit'] = last_profit
@@ -318,5 +336,5 @@ class Results_LastRound(Page):
 
 
 page_sequence = [consent, Disagree, Instruction, Quiz, Quiz2_1, PracticeRound, Practice, Practice2, Fine_Instruction,
-                 Revoke_Instruction, Contribute_first_page, regulation_audit, ResultsWaitPage, ResultsPractice, Results, Results_audited,
+                 Revoke_Instruction, Contribute_first_page, MyWaitPage, regulation_audit, ResultsWaitPage, ResultsPractice, Results, Results_audited,
                  Results_notaudited, Results_noreg, contribution_table, Results_LastRound, Questionaire, Final_Thank_you]

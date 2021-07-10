@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Quiz
+{% endblock %}
+
+
+{% block content %}
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p>
+   Now let's try another quiz !
+   Check the correct answer and then click "Next".
+</p>
+    </div>
+</div>
+
+{% formfield player.quiz3_all %}
+
+{% formfield player.quiz4_all %}
+
+{% next_button %}
+
+{% endblock %}

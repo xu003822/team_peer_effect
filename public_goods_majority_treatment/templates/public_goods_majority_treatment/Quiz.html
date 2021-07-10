@@ -1,0 +1,34 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Quiz
+{% endblock %}
+
+
+{% block content %}
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p>
+    your group of
+    {{ Constants.players_per_group }} players has the opportunity to undertake a joint project. Each participant in
+        the group decides how much she or he is going to contribute to
+        the project. Contribution could be any integer from 0
+        to {{ Constants.endowment }}. The earnings from the project are calculated as follows: The
+        contributions of all {{ Constants.players_per_group }} participants are
+        added up, the total contribution is multiplied by a factor of {{ Constants.multiplier }}, and the
+        resulting amount is the total earnings from the project, which is
+        evenly split among all {{ Constants.players_per_group }}
+        participants. Your payoff equals your earnings from the project, plus
+        the amount you did not contribute. Please enter the number of token you would like to contribute to the public project.
+</p>
+    </div>
+</div>
+
+{% formfield player.quiz1_all %}
+
+{% formfield player.quiz2_all %}
+
+{% next_button %}
+
+{% endblock %}

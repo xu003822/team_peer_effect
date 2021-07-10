@@ -1,0 +1,95 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    OVERVIEW OF THE EXPERIMENT
+{% endblock %}
+
+
+{% block content %}
+<!--<p>
+Before we begin,  we want to thank you all for accepting this invitation and participating in this exercise.
+The objective of this exercise is to understand how people make decisions related to the use of a shared natural resource.
+    All the decisions you make, as well as all the other information you will provide us, will remain confidential.</p>-->
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+    <h3>
+        Instructions
+    </h3>
+
+<p>
+    Welcome to the experiment.  This is an experiment funded by research foundations to study decision making.
+    For showing up on time, you will be paid a $5 show-up fee.  In addition, you may receive additional earnings
+    as the result of the outcomes in this session.  All earnings that you make will be in “tokens”. At the end of
+    the experiment we will pay you in cash an amount equal to $0.25 for every token you earn.
+    Today’s session will take about an hour and a half.
+</p>
+
+        <b>Decisions:</b> <br>
+
+        <p> At the beginning of this decision-making experiment you will be matched with two other players,
+            randomly selected from the people in this room, to form a team of three. You will remain in this
+            team of three players for the duration of the entire decision-making experiment. The identity of
+            the other players of your team will not be revealed. Your team will play a game with three other teams in the experiment.
+
+            Each team will receive {{ Constants.endowment }}  tokens at the beginning of this experiment. The experiment has two
+            independent rounds. In the first round, each team decides how much of the {{ Constants.endowment }}  tokens to keep, and
+            how much to contribute to a public POOL that is shared by all the four teams: Your team can contribute
+            any number between 0 and {{ Constants.endowment }}  and only whole numbers will be accepted. In the second round, your team will be asked
+            to indicate conditional contribution levels for each of the 21 possible average contribution levels
+            {0, 1, 2, …, 20} of the other three teams.
+            </p>
+
+        <b>Payoffs:</b> <br>
+
+        <p><b>Your earning will equal your team’s earning; everyone in your team will have the same earning.</b>
+            Your team's earning from the game is the amount your team did not contribute to the POOL plus the return from the POOL.
+        Each team’s return from the POOL is calculated as follows: The total contribution from all four teams to the POOL is multiplied by a factor of 2,
+        which is the total earning for the four teams. The total earning is then split equally among all 4 teams, regardless
+        of their contribution to the POOL.
+        </p>
+        <p>
+            In the end, the computer program will randomly select <b>three</b> teams. The total contribution
+            to the POOL is the sum of these three teams' first round contribution plus the fourth team's second round
+            contribution from the binding condition. The binding condition is determined by the other three teams’ actual
+            average contribution in the first round.
+        </p>
+        <p>
+         For the selected three teams, the first round’s outcome determines their final payoffs. Each team’s final
+            payoff is the return from the POOL plus the amount this team didn't contribute in the first round. For the
+            selected fourth team, the second round’s outcome determines the final payoff. This team’s final payoff is the earnings
+            from the POOL plus the amount it didn't contribute in the second round.
+        </p>
+
+                <b>Decision rule within a team:</b> <br>
+           <p>Within a team, each team member will propose a contribution level each round. A random draw will then determine
+               which team member's proposed contribution level to be the team's contribution level.</p>
+
+<p> <b>Example:</b><br>
+
+Assume in the first round your team decides to contribute 0 tokens and the other three teams contribute 8, 10, 12 respectively. And in the
+    second round, your team decide to contribute 20
+    tokens if the other teams contribute 10 on average. Imagine that the computer program randomly selects your team's second-round decision (i.e., your team is the
+    fourth team) and other three teams' first round decisions to constitute the total contribution to the POOL. In the first round, the other three
+    teams' average contribution is (8+10+12)/3=10, and in the second round your team decides to contribute 20 when the average is 10. The total contribution to
+    the POOL is thus 20+10*3 = 50. The total contribution is then multiplied by a factor of 2, and the resulting amount is the total earning from the POOL,
+    which is evenly split among all 4 teams. Thus your team gets 50*2/4=25 from the POOL. Your team's final payoff equals your team's earning from the POOL, 25, plus the amount
+    your team did not contribute in the second round, 0, resulting in 25. Since each team member's payoff is the same as the team's payoff, your final payoff is also 25.
+    The other three teams' final payoffs equal their earnings from the POOL, 25, plus what
+    they did not contribute in the first round. Therefore, for the team who contributes 8 to the POOL in the first round, the final payoff is the earning
+    from the POOL, 25, plus the amount it did not contribute, 12, which results in a final payoff of 37. For the team who contributes 10 to the POOL
+    in the first round, the final payoff is the earning from the POOL, 25, plus the amount it did not contribute, 10, which results in a final payoff
+    of 35. For the team who contributes 12 to the POOL
+    in the first round, the final payoff is the earning from the POOL, 25, plus the amount it did not contribute, 8, which results in a final payoff of 33.
+
+    </div>
+</div>
+
+<p>Still unclear? Please raise your hand and the experimenter will personally explain to you. </p>
+
+{% formfield player.id_number %}
+
+{% next_button %}
+
+{% endblock %}
