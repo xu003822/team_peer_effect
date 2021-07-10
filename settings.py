@@ -4,20 +4,20 @@ STATIC_URL = '/static/'
 
 SESSION_CONFIGS = [
     dict(
-        name='public_goods_team',
-        display_name='A public goods experiment',
+        name='public_goods_individual',
+        display_name='A public goods experiment_individual',
         num_demo_participants=4,
         app_sequence=['public_goods_individual_treatment'],
     ),
     dict(
         name='public_goods_team',
-        display_name='A public goods experiment',
+        display_name='A public goods experiment_team',
         num_demo_participants=12,
         app_sequence=['public_goods_majority_treatment'],
     ),
     dict(
-        name='public_goods_team',
-        display_name='A public goods experiment',
+        name='public_goods_random',
+        display_name='A public goods experiment_random',
         num_demo_participants=12,
         app_sequence=['public_goods_random_ballot'],
     )
