@@ -7,7 +7,7 @@ SESSION_CONFIGS = [
         name='public_goods_team',
         display_name='A public goods experiment',
         num_demo_participants=4,
-        app_sequence=['public_goods_indivdiual_treatment'],
+        app_sequence=['public_goods_individual_treatment'],
     ),
     dict(
         name='public_goods_team',
