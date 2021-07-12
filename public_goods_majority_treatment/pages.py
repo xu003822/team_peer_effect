@@ -151,17 +151,19 @@ class WaitingOther_Condi(Page):
 
 class Results_LastRound(Page):
     def is_displayed(self):
-        if self.session.vars['all_finished'] == 1 and self.player.participant.vars['audit_or_not'] == 1:
-            return True
-        else:
-            return False
+        if self.player.participant.vars['conditional_round'] >= 4:
+           if self.session.vars['all_finished'] == 1 and self.player.participant.vars['audit_or_not'] == 1:
+              return True
+           else:
+              return False
 
 class Results_LastRound_notaudit(Page):
     def is_displayed(self):
-        if self.session.vars['all_finished'] == 1 and self.player.participant.vars['audit_or_not']!=1:
-            return True
-        else:
-            return False
+        if self.player.participant.vars['conditional_round'] >= 4:
+           if self.session.vars['all_finished'] == 1 and self.player.participant.vars['audit_or_not'] != 1:
+              return True
+           else:
+              return False
 
 
 class Questionaire(Page):

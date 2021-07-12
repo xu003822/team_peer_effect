@@ -35,12 +35,11 @@ class Group(BaseGroup):
     tot_contri = models.IntegerField(label="The group's total contribution is ")
     individual_share = models.FloatField(label="At the end of the round, each of you gets extra amount fish of")
     other_extrac = models.IntegerField(label="the group's other members' total contribution")
-    tot_other_avg = models.FloatField(label="the group's other members' average contribution")
+    tot_other_avg = models.IntegerField(label="the group's other members' average contribution")
     tot_other_contri = models.FloatField(label="the group's other members' average contribution")
 
 
     def set_payoff_conditional(self):
-
 
         large_group = self.get_players()
         # A contains 4 subgroup
@@ -94,9 +93,6 @@ class Group(BaseGroup):
                         self.session.vars['all_finished'] = 0
 
     def last_round_payoff(self):
-        from decimal import localcontext, Decimal, ROUND_HALF_UP
-        with localcontext() as ctx:
-            ctx.rounding = ROUND_HALF_UP
 
         large_group = self.get_players()
         for p in large_group:
@@ -167,8 +163,10 @@ class Group(BaseGroup):
 
         self.tot_other_avg = self.session.vars['other_average']
 
-        self.individual_share = Constants.multiplier * self.tot_contri / Constants.num_team
-        self.individual_share = self.individual_share.to_integral_value()
+        if Constants.multiplier * self.tot_contri / Constants.num_team - int(Constants.multiplier * self.tot_contri / Constants.num_team) == 0.5:
+            self.individual_share = int(Constants.multiplier * self.tot_contri / Constants.num_team) + 1
+        else:
+            self.individual_share = round(Constants.multiplier * self.tot_contri / Constants.num_team)
 
         for p in self.get_players():
                 if p.participant.vars['audit_or_not'] == 0:
@@ -180,9 +178,6 @@ class Group(BaseGroup):
 
 
     def set_payoff1(self):
-        from decimal import localcontext, Decimal, ROUND_HALF_UP
-        with localcontext() as ctx:
-            ctx.rounding = ROUND_HALF_UP
 
         large_group = self.get_players()
         # A contains 4 subgroup
@@ -249,9 +244,7 @@ class Group(BaseGroup):
                     if p.participant.vars['audit_or_not'] == 0:
                         self.tot_other_contri = p.participant.vars['contri'] / Constants.subnum + self.tot_other_contri
 
-            self.session.vars['other_average'] = self.tot_other_contri / (Constants.num_team - 1)
-
-            self.session.vars['other_average'] = self.session.vars['other_average'].to_integral_value()
+            self.session.vars['other_average'] = round(self.tot_other_contri / (Constants.num_team - 1))
 
 
     def set_payoff(self):
@@ -296,6 +289,8 @@ class Group(BaseGroup):
                      p.participant.vars['agree'] = 1
 
         self.session.vars['agreed'] = 1
+        self.session.vars['all_finished'] = 0
+
         #generate an indicator indicating that everyone has reached a decision
         for p in large_group:
             p.participant.vars['conditional_round'] = 0

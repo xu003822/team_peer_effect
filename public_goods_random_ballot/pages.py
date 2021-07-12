@@ -140,7 +140,7 @@ class Final_Thank_you(Page):
             acc_final=acc_dollar + self.session.config['participation_fee']
         )
 #
-page_sequence = [Contribute_first_page, ResultsWaitPage, Results_FirstRound,
+page_sequence = [consent, Instruction, Contribute_first_page, ResultsWaitPage, Results_FirstRound,
                 contribution_conditional, ResultsWaitConditional, ResultsWaitFinal, Results_LastRound,
                  Results_LastRound_notaudit,
                 Questionaire, Final_Thank_you]

@@ -7,19 +7,22 @@ class consent(Page):
     form_model = 'player'
     form_fields = ['consent']
 
-
-
-class Disagree(Page):
-    # Display this page only if paricipant disagrees with the terms.
     def is_displayed(self):
-        return self.player.consent == 0
+        if self.round_number == 1:
+            return True
+        else:
+            return False
 
 
 class Instruction(Page):
     form_model = 'player'
     form_fields = ['id_number']
 
-
+    def is_displayed(self):
+        if self.round_number == 1:
+            return True
+        else:
+            return False
 
 class Quiz(Page):
     form_model = 'player'
@@ -58,6 +61,7 @@ class ResultsWaitPage(WaitPage):
 
     def is_displayed(self):
         if self.round_number <= 4:
+            # before it is self.round_number <= 4:
             return True
         else:
             return False
@@ -112,13 +116,11 @@ class contribution_table(Page):
 
 class Results_LastRound(Page):
     def is_displayed(self):
-        if self.player.id_in_group == self.session.vars['idd']  and self.round_number== 4:
+        if self.player.id_in_group == self.session.vars['idd'] and self.round_number == 4:
             return True
         else:
             return False
 
 
-
-
-page_sequence = [consent, Disagree, Instruction, Contribute_first_page, contribution_table, ResultsWaitPage, Results,
+page_sequence = [consent, Instruction, Contribute_first_page, contribution_table, ResultsWaitPage, Results,
                   Results_LastRound, Questionaire, Final_Thank_you]

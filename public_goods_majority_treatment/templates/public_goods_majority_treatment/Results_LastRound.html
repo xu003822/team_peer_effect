@@ -8,9 +8,10 @@
 {% block content %}
 <p>
     Your team's final payoff depends on the decision made in round 2 and other teams' decisions in round 1. In round 1,
-    the other three teams on average contributed {{group.tot_other_avg}}, (Note, we follow the standard rule of rounding here,
-    if the average is greater than or equal to 0.5, we round up to 1; otherwise, we round down to 0)
+    the other three teams on average contributed {{group.tot_other_avg}},
     your team decided to contribute {{participant.vars.condi_choice}} in round 2 when the average contribution of your group members is {{group.tot_other_avg}}.
+    (Note, we follow the standard rule of rounding here,
+    if the average is greater than or equal to 0.5, we round up to 1; otherwise, we round down to 0.)
     Thus the results  are:
 </p>
 <div class="card bg-light m-3">

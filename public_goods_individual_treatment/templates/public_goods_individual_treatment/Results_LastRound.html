@@ -7,9 +7,10 @@
 
 {% block content %}
 <p>Your final payoff depends on the decision you made in round 2 and others' decisions in round 1. In round 1,
-    your groupmates on average contributed {{session.vars.avg_contri}}, (Note, we follow the standard rule of rounding here,
-    if the average is greater than or equal to 0.5, we round up to 1; otherwise, we round down to 0)
+    your groupmates on average contributed {{session.vars.avg_contri}},
     you decided to contribute {{session.vars.condi_choice}} in round 2 when the average contribution of your group members is {{session.vars.avg_contri}}.
+    (Note, we follow the standard rule of rounding here,
+    if the average is greater than or equal to 0.5, we round up to 1; otherwise, we round down to 0.)
     The results are thus:
 </p>
 <div class="card bg-light m-3">

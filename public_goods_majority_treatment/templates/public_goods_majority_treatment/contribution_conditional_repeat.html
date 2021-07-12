@@ -9,7 +9,8 @@
 
 <div class="formlabel">
     If the average contribution from the other teams is <b>{{participant.vars.conditional_round}}</b> tokens,
-    how many tokens you want your team to contribute to the public POOL?
+    how many tokens you want your team to contribute to the public POOL? (Note when calculating average contribution of the others,
+    we follow the standard rule of rounding, if the average is greater than or equal to 0.5, we round up to 1; otherwise, we round down to 0)
     Before proposing the contribution, you can chat with your team members through the chatbox below.</div>
 
 {% chat nickname=player.chat_nickname channel=player.role %}
@@ -56,6 +57,11 @@ Please enter the number of tokens you would like your team to contribute to the 
             selected fourth team, the second round’s outcome determines the final payoff. This team’s final payoff is the earnings
             from the POOL plus the amount it didn't contribute in the second round.
         </p>
+        <b>Decision rule within a team:</b> <br>
+           <p>Within a team, each team member will propose a contribution level each round. If at least two members propose the same amount,
+               that amount becomes the team contribution level. Otherwise, team members go back
+               to propose again until two or more team members propose the same amount. Before proposing the contribution,
+               members within a team can chat communicate with each other in an anonymous chat room. </p>
   </div>
 </div>
 

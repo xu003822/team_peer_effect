@@ -39,10 +39,6 @@ class Group(BaseGroup):
 
     def set_payoff(self):
         import random
-        from decimal import localcontext, Decimal, ROUND_HALF_UP
-        with localcontext() as ctx:
-             ctx.rounding = ROUND_HALF_UP
-
         players = self.get_players()
 
         if self.round_number == 1:
@@ -66,8 +62,7 @@ class Group(BaseGroup):
            for p in players:
                if p.id_in_group != self.session.vars['idd']:
                   self.tot_other_contri = p.contribution + self.tot_other_contri
-           self.session.vars['avg_contri'] = self.tot_other_contri / (Constants.players_per_group - 1)
-           self.session.vars['avg_contri'] = self.session.vars['avg_contri'].to_integral_value()
+           self.session.vars['avg_contri'] = round(self.tot_other_contri / (Constants.players_per_group - 1))
            self.session.vars['tot_other_contri'] = self.tot_other_contri
 
         self.session.vars['condi_choice'] = 0
@@ -79,8 +74,15 @@ class Group(BaseGroup):
                         if self.session.vars['avg_contri'] == i:
                             self.session.vars['condi_choice'] = p.participant.vars['condi_list'][i]
 
-        self.individual_share = Constants.multiplier * (self.session.vars['tot_other_contri'] + self.session.vars['condi_choice'])/ Constants.players_per_group
-        self.individual_share = self.individual_share.to_integral_value()
+        if (Constants.multiplier * (self.session.vars['tot_other_contri'] +
+                                                              self.session.vars['condi_choice'])/ Constants.players_per_group) - int(Constants.multiplier * (self.session.vars['tot_other_contri'] +
+                                                              self.session.vars['condi_choice'])/ Constants.players_per_group) == 0.5:
+            self.individual_share = int(Constants.multiplier * (self.session.vars['tot_other_contri'] +
+                                                              self.session.vars['condi_choice'])/ Constants.players_per_group) + 1
+        else:
+            self.individual_share = round(Constants.multiplier * (self.session.vars['tot_other_contri'] +
+                                                              self.session.vars['condi_choice'])/ Constants.players_per_group)
+
 
         for p in players:
             if p.id_in_group != self.session.vars['idd']:
@@ -135,6 +137,15 @@ class Player(BasePlayer):
       )
 
       income = models.FloatField(label="What's your family income per month?")
+
+      risk = models.IntegerField(label="On  a scale from 1 to 10, how willing or unwilling are you to take "
+                                       "risks (1 – completely unwilling to take risks, 10 – very willing to take risks)? ___")
+      punish = models.IntegerField(label="How willing are you to punish someone who treats you unfairly, even if there may be "
+                                         "costs to yourself to punish them (1 – completely unwilling to do so, 10 – very willing to do so)? ___")
+      punish2 = models.IntegerField(label="How willing are you to punish someone who treats other people unfairly, even if "
+                                          "there may be costs to yourself to punish them (1 – completely unwilling to do so, 10 – very willing to do so)? ___")
+      favor = models.IntegerField(label="How well does the following statement describe you as a person: “When someone does me a favor, "
+                                        "I am willing to return it” (1 – does not describe me at all, 10 – describes me perfectly)? ___")
 
       consent = models.BooleanField()  # Record participant's consent.
 
