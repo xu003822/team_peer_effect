@@ -362,9 +362,18 @@ class Player(BasePlayer):
         else:
             return 'Team_4'
 
+    def team_subid(self):
+        for i in range(1, 12, 3):
+            if self.id_in_group == i:
+                return '1'
+            if self.id_in_group == i + 1:
+                return '2'
+            if self.id_in_group == i + 2:
+                return '3'
+
     def chat_nickname(self):
         # return 'Group {}, Player {}'.format(self.group.id_in_subsession, self.id_in_group)
-        return '{}, Player_{}'.format(self.role(), self.id_in_group)
+        return '{}, Player_{}'.format(self.role(), self.team_subid())
 
     quiz1_all = quiz1_question(
         "1. Suppose you contribute 20 fish this round and your group mates altogether extract 120 fish. How many fish you will get for this round?")

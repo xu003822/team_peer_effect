@@ -14,12 +14,6 @@ class consent(Page):
           return False
 
 
-class Disagree(Page):
-    # Display this page only if paricipant disagrees with the terms.
-    def is_displayed(self):
-        return self.player.consent == 0
-
-
 class Instruction(Page):
     form_model = 'player'
     form_fields = ['id_number']

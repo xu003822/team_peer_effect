@@ -13,12 +13,6 @@ class consent(Page):
        else:
           return False
 
-class Disagree(Page):
-    # Display this page only if paricipant disagrees with the terms.
-    def is_displayed(self):
-        return self.player.consent == 0
-
-
 class Instruction(Page):
     form_model = 'player'
     form_fields = ['id_number']
@@ -198,7 +192,7 @@ class Final_Thank_you(Page):
 #         else:
 #             return False
 #
-page_sequence = [consent, Disagree, Instruction, Contribute_first_page, ResultsWaitPage, Results_Disagree, Results_Agree,
+page_sequence = [consent, Instruction, Contribute_first_page, ResultsWaitPage, Results_Disagree, Results_Agree,
                  Contribute_first_page_repeat, ResultsWaitPage1, contribution_conditional,
                  contribution_conditional_repeat, ResultsWaitConditional, WaitingOther_Condi, ResultsWaitFinal, Results_LastRound,
                  Results_LastRound_notaudit,
