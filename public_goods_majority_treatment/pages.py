@@ -13,7 +13,7 @@ class consent(Page):
        else:
           return False
 
-class Instruction(Page):
+class ID(Page):
     form_model = 'player'
     form_fields = ['id_number']
 
@@ -23,15 +23,22 @@ class Instruction(Page):
        else:
           return False
 
+class Instruction(Page):
+    def is_displayed(self):
+       if self.round_number == 1:
+          return True
+       else:
+          return False
 
-# class Quiz(Page):
-#     form_model = 'player'
-#     form_fields = ['quiz1_all','quiz2_all']
-#
-#
-# class Quiz2_1(Page):
-#     form_model = 'player'
-#     form_fields = ['quiz3_all','quiz4_all']
+
+class Quiz(Page):
+    form_model = 'player'
+    form_fields = ['quiz1_all','quiz2_all']
+
+
+class Quiz2_1(Page):
+    form_model = 'player'
+    form_fields = ['quiz3_all','quiz4_all']
 
 class Contribute_first_page(Page):
     form_model = "player"
@@ -192,7 +199,7 @@ class Final_Thank_you(Page):
 #         else:
 #             return False
 #
-page_sequence = [consent, Instruction, Contribute_first_page, ResultsWaitPage, Results_Disagree, Results_Agree,
+page_sequence = [ID, consent, Instruction, Quiz, Quiz2_1, Contribute_first_page, ResultsWaitPage, Results_Disagree, Results_Agree,
                  Contribute_first_page_repeat, ResultsWaitPage1, contribution_conditional,
                  contribution_conditional_repeat, ResultsWaitConditional, WaitingOther_Condi, ResultsWaitFinal, Results_LastRound,
                  Results_LastRound_notaudit,

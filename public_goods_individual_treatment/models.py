@@ -91,6 +91,7 @@ class Group(BaseGroup):
             if p.id_in_group == self.session.vars['idd']:
                 p.payoff = Constants.endow - self.session.vars['condi_choice'] + self.individual_share
 
+            p.acc_payoff = p.payoff.to_real_world_currency(self.session) + self.session.config['participation_fee']
 
         self.tot_contri = self.session.vars['tot_other_contri']+self.session.vars['condi_choice']
 
@@ -126,8 +127,6 @@ def quiz4_question(label):
 class Player(BasePlayer):
       id_number = models.IntegerField(label="Please enter your ID number here", min=0, max=300)
       acc_payoff = models.CurrencyField(label="The player's accumulative payoff is ")
-      act_payoff = models.CurrencyField(label="The player's accumulative payoff in canadian dollar is")
-      actpar_payoff = models.CurrencyField(label="The player's final payoff including the participation fee is")
       contribution = models.IntegerField(label="How many tokens you decide to contribute in this round", min=0, max=20)
       other_contri = models.IntegerField(label="Please also enter your expectation of the average catch of other group members", min=0, max=20)
       audit_or_not = models.BooleanField(label="The individual is audited or not")

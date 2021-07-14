@@ -13,10 +13,17 @@ class consent(Page):
         else:
             return False
 
-
-class Instruction(Page):
+class ID(Page):
     form_model = 'player'
     form_fields = ['id_number']
+
+    def is_displayed(self):
+        if self.round_number == 1:
+            return True
+        else:
+            return False
+
+class Instruction(Page):
 
     def is_displayed(self):
         if self.round_number == 1:
@@ -122,5 +129,5 @@ class Results_LastRound(Page):
             return False
 
 
-page_sequence = [consent, Instruction, Contribute_first_page, contribution_table, ResultsWaitPage, Results,
+page_sequence = [ID, consent, Instruction, Quiz, Quiz2_1, Contribute_first_page, contribution_table, ResultsWaitPage, Results,
                   Results_LastRound, Questionaire, Final_Thank_you]

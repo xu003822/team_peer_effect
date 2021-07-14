@@ -159,7 +159,8 @@ class Group(BaseGroup):
 
         for p in large_group:
             if p.participant.vars['audit_or_not'] == 1:
-                self.tot_contri = p.participant.vars['condi_choice'] + self.session.vars['other_average'] * (Constants.num_team - 1)
+                self.tot_contri = p.participant.vars['condi_choice'] + self.tot_other_contri
+
 
         self.tot_other_avg = self.session.vars['other_average']
 
@@ -174,6 +175,8 @@ class Group(BaseGroup):
                 # p.payoff = Constants.endowment - p.participant.vars['contri'] + self.individual_share
                 else:
                     p.payoff = Constants.endowment - p.participant.vars['condi_choice'] + self.individual_share
+
+                p.acc_payoff = p.payoff.to_real_world_currency(self.session) + self.session.config['participation_fee']
 
 
 
@@ -247,6 +250,7 @@ class Group(BaseGroup):
             self.session.vars['other_average'] = round(self.tot_other_contri / (Constants.num_team - 1))
 
 
+
     def set_payoff(self):
         import random
         #assign people to four different teams(subgroups)
@@ -301,42 +305,36 @@ class Group(BaseGroup):
 
 def quiz1_question(label):
     return models.IntegerField(
-        choices=[44, 60, 80, 120],
-        widget=widgets.RadioSelect,
-        label=label
+        choices = [25, 30, 35, 40],
+        widget = widgets.RadioSelect,
+        label = label
     )
-
 
 def quiz2_question(label):
     return models.IntegerField(
-        choices=[40, 56, 72, 120],
-        widget=widgets.RadioSelect,
-        label=label
+        choices = [10, 22.5, 37.5, 40],
+        widget = widgets.RadioSelect,
+        label = label
     )
-
 
 def quiz3_question(label):
     return models.IntegerField(
-        choices=[40, 60, 76, 120],
-        widget=widgets.RadioSelect,
-        label=label
+        choices = [20, 28, 34, 40],
+        widget = widgets.RadioSelect,
+        label = label
     )
-
 
 def quiz4_question(label):
     return models.IntegerField(
-        choices=[60, 76, 96, 120],
-        widget=widgets.RadioSelect,
-        label=label
+        choices = [20, 25, 30, 35],
+        widget = widgets.RadioSelect,
+        label = label
     )
-
 
 class Player(BasePlayer):
     id_number = models.IntegerField(label="Please enter your ID number here", min=0, max=300)
     acc_payoff = models.CurrencyField(label="The player's accumulative payoff is ")
-    act_payoff = models.CurrencyField(label="The player's accumulative payoff in canadian dollar is")
-    actpar_payoff = models.CurrencyField(label="The player's final payoff including the participation fee is")
-    contribution = models.IntegerField(label="How many tokens you decide to contribute in this round", min=0, max=20)
+    contribution = models.IntegerField(label="How many tokens do you want your team to contribute in this round", min=0, max=20)
 
     other_contri = models.IntegerField(
         label="Please also enter your expectation of the average catch of other group members", min=0, max=20)
@@ -376,37 +374,62 @@ class Player(BasePlayer):
         return '{}, Player_{}'.format(self.role(), self.team_subid())
 
     quiz1_all = quiz1_question(
-        "1. Suppose you contribute 20 fish this round and your group mates altogether extract 120 fish. How many fish you will get for this round?")
+        "1. If in the first round your team decides to contribute 5 tokens and other three teams contribute 10, 15, 20 respectively. "
+        "Imagine that the computer program later randomly selects the team who contributes 20 as the fourth team, for which the "
+        "payoff-relevant decision is from "
+        "the second round. And this team decides to contribute 10 when the average contribution of other teams in the"
+        " first round is 10. What's your final payoff?")
+
     quiz2_all = quiz2_question(
-        "2. Suppose you extract 40 fish this round and your group mates altogether extract 80 fish. How many fish you will get for this round?")
+        "2. If in the first round your team decides to contribute 20 tokens and other three teams contribute 0, 10, 5 respectively. "
+        "Imagine that the computer program later randomly selects your team as the fourth team, for which the payoff-relevant decision "
+        "is from the second round. In the second round, your team decides to contribute 10 when the average contribution in the first "
+        "round is 5. What's your final payoff?")
 
     quiz3_all = quiz3_question(
-        "1. Suppose you extract 60 fish this round and your group mates altogether extract 100 fish. How many fish you will get for this round?")
+        "3. If in the first round your team decides to contribute 10 tokens and other teams contribute 5, 15, 20 respectively."
+        " Imagine that the computer program later randomly selects the team who contributes 20 as the fourth team, for which the payoff-relevant decision is from the "
+        "second round. And this team decides to contribute 6 when the average contribution of other teams in the first round is 10. "
+        "What's your final payoff?")
+
     quiz4_all = quiz4_question(
-        "2. Suppose you extract 80 fish this round and your group mates altogether extract 80 fish. How many fish you will get for this round?")
+        "4. If in the first round your team decides to contribute 15 tokens and other teams contribute 5, 10, 15 respectively."
+        " Imagine that the computer program later randomly selects your team as the fourth team, for which the payoff-relevant decision is from"
+        "the second round. In the second"
+        " round, your team decides to contribute 10 when the average contribution in the first round is 10."
+        " What's your final payoff?")
 
     def quiz1_all_error_message(self, quiz1_all):
-        if quiz1_all != 44:
+        if quiz1_all != 35:
             self.participant.vars['quiz'] = 0
-            return 'Your answer for this quesiton is incorrect. The correct answer is 44. The reason being that since the whole group catches 140 fish, there will be 60 fish left. At' \
-                   ' the end of the round, the fish amount doubles to 120. So each player gets an extra 24 fish at the end of the round. So you will in total get 44 fish.' \
-                   ' If you are still unclear, please ask the instructor on how to answer this question. Next let\'s try another quiz!'
+            return 'Your answer for this question is incorrect. The correct answer is 35. This is because the fourth team' \
+                   ' decides to contribute 20 in the first round and to contribute 10 in the second round if other teams’ average contribution is 10 [(5+10+15)/3] ' \
+                   'in the first round. The ' \
+                   'total contribution to the POOL is thus 5 + 10 +15 + 10 = 40. Each team’s earning from the POOL is thus 40*2/4 = 20. Your team’s final payoff is ' \
+                   '20 - 5 + 20 = 35. So your final payoff is 35.'
 
     def quiz2_all_error_message(self, quiz2_all):
-        if quiz2_all != 72:
+        if quiz2_all != 20:
             self.participant.vars['quiz'] = 0
-            return 'Your answer for this question is incorrect. The correct answer is 72. The reason being that since the whole group catches 120 fish, there will be 80 fish left. At' \
-                   ' the end of the round, the fish amount doubles to 160. So each player gets an extra 32 fish at the end of the round. So you will in total get 72 fish.' \
-                   ' If you are still unclear, please ask the instructor on how to answer this question. Next let\'s try another quiz!'
+            return 'Your answer for this question is incorrect.  The correct answer is 22.5. ' \
+                   'This is because your second round decision is the payoff-relevant decision. In this round your team decide to contribute ' \
+                   '10 when other teams on average contributed 5 in the first round. The total contribution is thus 0 + 10 + 5 +10 = 25.' \
+                   ' Each team’s payoff from the POOL is thus 25*2/4 = 12.5.  Your team’s final payoff is 20 - 10 + 12.5 = 22.5. So your final payoff is 22.5.'
 
     def quiz3_all_error_message(self, quiz3_all):
-        if quiz3_all != 76:
-            return 'Your answer for this quesiton is incorrect. The correct answer is 76. The reason being that since the whole group catches 160 fish, there will be 40 fish left. At' \
-                   ' the end of the round, the fish amount doubles to 80. So each player gets an extra 16 fish at the end of the round. So you will in total get 76 fish.' \
-                   ' If you are still unclear, please ask the instructor on how to answer this question.'
+        if quiz3_all != 28:
+            return 'Your answer for this quesiton is incorrect. The correct answer is 28.' \
+                   ' This is because the team who contributes 20 in the first round' \
+                   ' contributes 6 in the second round when other teams on average contribute 10 in the first round. ' \
+                   'The total contribution is thus 6 + 5 + 10 +15 = 36. ' \
+                   'Each team’s payoff from the POOL is thus 36*2/4 = 18.' \
+                   ' Your team’s final payoff is 20 - 10 + 18 = 28. So your final payoff is 28.' \
 
     def quiz4_all_error_message(self, quiz4_all):
-        if quiz4_all != 96:
-            return 'Your answer for this question is incorrect. The correct answer is 96. The reason being that since the whole group catches 160 fish, there will be 40 fish left. At' \
-                   ' the end of the round, the fish amount doubles to 80. So each player gets an extra 16 fish at the end of the round. So you will in total get 96 fish.' \
-                   ' If you are still unclear, please ask the instructor on how to answer this question.'
+        if quiz4_all != 30:
+            return 'Your answer for this question is incorrect. The correct answer is 30. This is because your second ' \
+                   'round decision is the payoff-relevant decision.' \
+                   ' And your team decides to contribute 10 when other teams on average contribute 10 in the first round. The total contribution ' \
+                   'is thus 10 + 5 + 10 +15 = 40. ' \
+                   'Each team’s payoff from the POOL is thus 40*2/4 = 20.' \
+                   'Your team’s final payoff is 20 - 10 + 20 = 30. So your final payoff is 30.'
