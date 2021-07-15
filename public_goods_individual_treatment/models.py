@@ -24,6 +24,9 @@ class Constants(BaseConstants):
     endow = 20
     num_rounds=5
     endowment = 20
+    ex_rate = 0.1 # exchange rate
+    showup = 5
+
 
 class Subsession(BaseSubsession):
       pass
@@ -91,7 +94,7 @@ class Group(BaseGroup):
             if p.id_in_group == self.session.vars['idd']:
                 p.payoff = Constants.endow - self.session.vars['condi_choice'] + self.individual_share
 
-            p.acc_payoff = p.payoff.to_real_world_currency(self.session) + self.session.config['participation_fee']
+            p.acc_payoff = p.payoff*Constants.ex_rate + Constants.showup
 
         self.tot_contri = self.session.vars['tot_other_contri']+self.session.vars['condi_choice']
 
@@ -112,7 +115,7 @@ def quiz2_question(label):
 
 def quiz3_question(label):
     return models.IntegerField(
-        choices = [20, 28, 34, 40],
+        choices = [20, 31, 34, 40],
         widget = widgets.RadioSelect,
         label = label
     )
@@ -162,9 +165,9 @@ class Player(BasePlayer):
                                  "round is 5. What's your final payoff?")
 
       quiz3_all = quiz3_question(
-          "3. If in the first round you decide to contribute 10 tokens and other group members contribute 5, 15, 20 respectively."
+          "3. If in the first round you decide to contribute 0 tokens and other group members contribute 5, 10, 20 respectively."
             " Imagine that the experimenter later selects the player who contributes 20, for whom the payoff-relevant decision is his/her "
-           "second round decision. And this player decides to contribute 6 when the average contribution of other players in the first round is 10. "
+           "second round decision. And this player decides to contribute 7 when the average contribution of other players in the first round is 5. "
             "What's your final payoff?")
 
       quiz4_all = quiz4_question(
@@ -183,7 +186,7 @@ class Player(BasePlayer):
                     '20 - 5 + 20 = 35.'
 
       def quiz2_all_error_message(self, quiz2_all):
-          if quiz2_all != 24:
+          if quiz2_all != 21:
              self.participant.vars['quiz'] = 0
              return 'Your answer for this question is incorrect.  The correct answer is 21. ' \
                     'This is because your second round decision is the payoff-relevant decision. In this round you decide to contribute ' \
@@ -191,13 +194,13 @@ class Player(BasePlayer):
                     ' Each individual earnings from the POOL is thus 28*2/4 = 14.  Your final payoff is 20 - 13 + 14 = 21.'
 
       def quiz3_all_error_message(self, quiz3_all):
-          if quiz3_all != 28:
-             return 'Your answer for this quesiton is incorrect. The correct answer is 28.' \
+          if quiz3_all != 31:
+             return 'Your answer for this quesiton is incorrect. The correct answer is 31.' \
                     ' This is because the fourth player decides to contribute 20 in the first round' \
-                    ' and to contribute 6 in the second round if other players’ average contribute is 10 in the first round. ' \
-                    'The group’s total contribution to the POOL is thus 6 + 5 + 10 +15 = 36. ' \
-                    'Each player’s earning from the POOL is thus 36*2/4 = 18.'\
-                    ' Your final payoff is 20 - 10 + 18 = 28.' \
+                    ' and to contribute 7 in the second round if other players’ average contribute is 5 in the first round. ' \
+                    'The group’s total contribution to the POOL is thus 7 + 5 + 10 + 0 = 22. ' \
+                    'Each player’s earning from the POOL is thus 22*2/4 = 11.'\
+                    ' Your final payoff is 20 - 0 + 11 = 31.' \
 
       def quiz4_all_error_message(self, quiz4_all):
           if quiz4_all != 30:

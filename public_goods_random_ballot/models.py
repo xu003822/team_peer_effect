@@ -25,6 +25,8 @@ class Constants(BaseConstants):
     num_rounds = 100  # this allows repeated play
     endowment = 20
     subnum = 3  # the number of people in a team
+    ex_rate = 0.1 # exchange rate
+    showup = 5
 
 
 class Subsession(BaseSubsession):
@@ -133,7 +135,7 @@ class Group(BaseGroup):
 
             for p in large_group:
                 if p.participant.vars['audit_or_not'] == 1:
-                    self.tot_contri = p.participant.vars['condi_choice'] + self.tot_other_contri
+                    self.tot_contri = p.participant.vars['condi_choice'] + int(self.session.vars['tot_other'])
 
             if Constants.multiplier * self.tot_contri / Constants.num_team - int(
                     Constants.multiplier * self.tot_contri / Constants.num_team) == 0.5:
@@ -150,7 +152,7 @@ class Group(BaseGroup):
                 else:
                     p.payoff = Constants.endowment - p.participant.vars['condi_choice'] + self.individual_share
 
-                p.acc_payoff = p.payoff.to_real_world_currency(self.session) + self.session.config['participation_fee']
+                p.acc_payoff = p.payoff * Constants.ex_rate + Constants.showup
 
 
 
@@ -194,7 +196,8 @@ class Group(BaseGroup):
                     if p.participant.vars['audit_or_not'] == 0:
                          self.tot_other_contri = p.participant.vars['contri'] / Constants.subnum + self.tot_other_contri
 
-                self.session.vars['other_average'] = round(self.tot_other_contri / (Constants.num_team - 1))
+            self.session.vars['tot_other'] = self.tot_other_contri
+            self.session.vars['other_average'] = round(self.tot_other_contri / (Constants.num_team - 1))
 
             for p in large_group:
                 p.participant.vars['conditional_round'] = 0
@@ -218,7 +221,7 @@ def quiz2_question(label):
 
 def quiz3_question(label):
     return models.IntegerField(
-        choices = [20, 28, 34, 40],
+        choices = [20, 31, 34, 40],
         widget = widgets.RadioSelect,
         label = label
     )
@@ -285,9 +288,9 @@ class Player(BasePlayer):
         "round is 5. What's your final payoff?")
 
     quiz3_all = quiz3_question(
-        "3. If in the first round your team decides to contribute 10 tokens and other teams contribute 5, 15, 20 respectively."
+        "3. If in the first round your team decides to contribute 0 tokens and other teams contribute 5, 10, 20 respectively."
         " Imagine that the computer program later randomly selects the team who contributes 20 as the fourth team, for which the payoff-relevant decision is from the "
-        "second round. And this team decides to contribute 6 when the average contribution of other teams in the first round is 10. "
+        "second round. And this team decides to contribute 7 when the average contribution of other teams in the first round is 5. "
         "What's your final payoff?")
 
     quiz4_all = quiz4_question(
@@ -315,13 +318,13 @@ class Player(BasePlayer):
                    ' Each team’s payoff from the POOL is thus 28*2/4 = 14.  Your team’s final payoff is 20 - 13 + 14 = 21. So your final payoff is 21.'
 
     def quiz3_all_error_message(self, quiz3_all):
-        if quiz3_all != 28:
-            return 'Your answer for this quesiton is incorrect. The correct answer is 28.' \
+        if quiz3_all != 31:
+            return 'Your answer for this quesiton is incorrect. The correct answer is 31.' \
                    ' This is because the team who contributes 20 in the first round' \
-                   ' contributes 6 in the second round when other teams on average contribute 10 in the first round. ' \
-                   'The total contribution is thus 6 + 5 + 10 +15 = 36. ' \
-                   'Each team’s payoff from the POOL is thus 36*2/4 = 18.' \
-                   ' Your team’s final payoff is 20 - 10 + 18 = 28. So your final payoff is 28.' \
+                   ' contributes 7 in the second round when other teams on average contribute 5 in the first round. ' \
+                   'The total contribution is thus 7 + 5 + 10 +0 = 22. ' \
+                   'Each team’s payoff from the POOL is thus 22*2/4 = 11.' \
+                   ' Your team’s final payoff is 20 - 0 + 11 = 31. So your final payoff is 31.' \
 
     def quiz4_all_error_message(self, quiz4_all):
         if quiz4_all != 30:
