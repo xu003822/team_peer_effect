@@ -160,7 +160,6 @@ class Group(BaseGroup):
                 #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][20]
 
         for p in large_group:
-            breakpoint()
             if p.participant.vars['audit_or_not'] == 1:
                 self.tot_contri = p.participant.vars['condi_choice'] + int(self.session.vars['tot_other'])
 

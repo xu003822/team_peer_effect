@@ -67,7 +67,7 @@ class ResultsWaitPage(WaitPage):
     after_all_players_arrive = 'set_payoff'
 
     def is_displayed(self):
-        if self.round_number <= 4:
+        if self.round_number <= 21:
             # before it is self.round_number <= 4:
             return True
         else:
@@ -77,7 +77,7 @@ class ResultsWaitPage(WaitPage):
 
 class Results(Page):
     def is_displayed(self):
-        if self.player.id_in_group != self.session.vars['idd'] and self.round_number == 4:
+        if self.player.id_in_group != self.session.vars['idd'] and self.round_number == 21:
             return True
         else:
             return False
@@ -88,7 +88,7 @@ class Questionaire(Page):
     form_fields = ["age", "gender", "income"]
 
     def is_displayed(self):
-        if self.round_number == 4:
+        if self.round_number == 21:
             return True
         else:
             return False
@@ -104,7 +104,7 @@ class Final_Thank_you(Page):
             acc_final=acc_dollar + self.session.config['participation_fee']
         )
     def is_displayed(self):
-        if self.round_number == 4:
+        if self.round_number == 21:
             return True
         else:
             return False
@@ -123,7 +123,7 @@ class contribution_table(Page):
 
 class Results_LastRound(Page):
     def is_displayed(self):
-        if self.player.id_in_group == self.session.vars['idd'] and self.round_number == 4:
+        if self.player.id_in_group == self.session.vars['idd'] and self.round_number == 21:
             return True
         else:
             return False

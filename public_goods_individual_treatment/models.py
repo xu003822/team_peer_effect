@@ -70,10 +70,10 @@ class Group(BaseGroup):
 
         self.session.vars['condi_choice'] = 0
 
-        if self.round_number == 4:
+        if self.round_number == 21:
             for p in players:
                 if p.id_in_group == self.session.vars['idd']:
-                    for i in range(0,4):
+                    for i in range(0,21):
                         if self.session.vars['avg_contri'] == i:
                             self.session.vars['condi_choice'] = p.participant.vars['condi_list'][i]
 
