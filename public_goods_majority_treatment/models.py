@@ -412,7 +412,7 @@ class Player(BasePlayer):
         if quiz2_all != 21:
             self.participant.vars['quiz'] = 0
             return 'Your answer for this question is incorrect.  The correct answer is 21. ' \
-                   'This is because your second round decision is the payoff-relevant decision. In this round your team decide to contribute ' \
+                   'This is because your team’s second round decision is the payoff-relevant decision. In this round your team decide to contribute ' \
                    '13 when other teams on average contributed 5 in the first round. The total contribution is thus 0 + 13 + 5 +10 = 28.' \
                    ' Each team’s payoff from the POOL is thus 28*2/4 = 14.  Your team’s final payoff is 20 - 13 + 14 = 21. So your final payoff is 21.'
 
@@ -427,7 +427,7 @@ class Player(BasePlayer):
 
     def quiz4_all_error_message(self, quiz4_all):
         if quiz4_all != 30:
-            return 'Your answer for this question is incorrect. The correct answer is 30. This is because your second ' \
+            return 'Your answer for this question is incorrect. The correct answer is 30. This is because your team’s second ' \
                    'round decision is the payoff-relevant decision.' \
                    ' And your team decides to contribute 10 when other teams on average contribute 10 in the first round. The total contribution ' \
                    'is thus 10 + 5 + 10 +15 = 40. ' \

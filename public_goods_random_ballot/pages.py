@@ -34,12 +34,25 @@ class Instruction(Page):
 
 class Quiz(Page):
     form_model = 'player'
-    form_fields = ['quiz1_all','quiz2_all']
+    form_fields = ['quiz1_all', 'quiz2_all']
+
+    def is_displayed(self):
+        if self.round_number == 1:
+            return True
+        else:
+            return False
 
 
 class Quiz2_1(Page):
     form_model = 'player'
-    form_fields = ['quiz3_all','quiz4_all']
+    form_fields = ['quiz3_all', 'quiz4_all']
+
+    def is_displayed(self):
+        if self.round_number == 1:
+            return True
+        else:
+            return False
+
 
 class Contribute_first_page(Page):
     form_model = "player"
