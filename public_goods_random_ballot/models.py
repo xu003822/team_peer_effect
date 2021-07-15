@@ -211,7 +211,7 @@ def quiz1_question(label):
 
 def quiz2_question(label):
     return models.IntegerField(
-        choices = [10, 22.5, 37.5, 40],
+        choices = [10, 21, 36, 40],
         widget = widgets.RadioSelect,
         label = label
     )
@@ -307,12 +307,12 @@ class Player(BasePlayer):
                    '20 - 5 + 20 = 35. So your final payoff is 35.'
 
     def quiz2_all_error_message(self, quiz2_all):
-        if quiz2_all != 20:
+        if quiz2_all != 21:
             self.participant.vars['quiz'] = 0
-            return 'Your answer for this question is incorrect.  The correct answer is 22.5. ' \
+            return 'Your answer for this question is incorrect.  The correct answer is 21. ' \
                    'This is because your second round decision is the payoff-relevant decision. In this round your team decide to contribute ' \
-                   '10 when other teams on average contributed 5 in the first round. The total contribution is thus 0 + 10 + 5 +10 = 25.' \
-                   ' Each team’s payoff from the POOL is thus 25*2/4 = 12.5.  Your team’s final payoff is 20 - 10 + 12.5 = 22.5. So your final payoff is 22.5.'
+                   '13 when other teams on average contributed 5 in the first round. The total contribution is thus 0 + 13 + 5 +10 = 28.' \
+                   ' Each team’s payoff from the POOL is thus 28*2/4 = 14.  Your team’s final payoff is 20 - 13 + 14 = 21. So your final payoff is 21.'
 
     def quiz3_all_error_message(self, quiz3_all):
         if quiz3_all != 28:

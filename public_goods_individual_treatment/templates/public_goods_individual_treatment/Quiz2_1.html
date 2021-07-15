@@ -22,4 +22,40 @@
 
 {% next_button %}
 
+<div class="card bg-light m-3">
+    <div class="card-body">
+        <b>Reminder of the Rule </b> <br>
+        <br>
+       <p>  At the beginning of this decision-making experiment you will be matched with three other players,
+            randomly selected from the people in this room, to form a group of four. You will remain in this
+            group of four players for the duration of the entire decision-making experiment. The identity of
+            the other players of your group will not be revealed.
+            Each player in your group will receive {{ Constants.endowment }}  tokens at the beginning of this experiment. The experiment has two
+            independent rounds. In the first round, each player decides how much of the {{ Constants.endowment }}  tokens to keep, and
+            how much to contribute to a public POOL that  is shared by all players in your group: You can contribute
+            any number between 0 and {{ Constants.endowment }}  and only whole numbers will be accepted. In the second round, you will be asked
+            to indicate your conditional contribution levels for each of the 21 possible average contribution levels
+            {0, 1, 2, …, 20} of your groupmates.
+            </p>
+
+        <b>Payoffs:</b> <br>
+
+        <p>Your earning from the game is the amount you did not contribute to the POOL plus the return from the POOL.
+        Each player’s return from the POOL is calculated as follows: The total contribution from all players to the POOL is multiplied by a factor of 2,
+        which is the total earning for the group. The total earning is then split equally among all 4 players, regardless
+        of their contribution to the POOL.
+        </p>
+        <p>
+            In the end, the computer program will randomly select <b>three</b> players in the group. The group’s total contribution
+            to the POOL is the sum of these three players' first round contribution plus the fourth player's second round
+            contribution from the binding condition. The binding condition is determined by the other three players’ actual
+            average contribution in the first round.
+        </p>
+        <p>
+         For the selected three players, the first round’s outcome determines their final payoffs. Each player’s final
+            payoff is the return from the POOL plus the amount this player didn't contribute in the first round. For the
+            selected fourth player, the second round’s outcome determines the final payoff. This player’s final payoff is the earnings
+            from the POOL plus the amount s/he didn't contribute in the second round.
+        </p>
+
 {% endblock %}

@@ -105,7 +105,7 @@ def quiz1_question(label):
 
 def quiz2_question(label):
     return models.IntegerField(
-        choices = [10, 22.5, 37.5, 40],
+        choices = [10, 21, 36, 40],
         widget = widgets.RadioSelect,
         label = label
     )
@@ -158,7 +158,7 @@ class Player(BasePlayer):
 
       quiz2_all = quiz2_question("2. If in the first round you decide to contribute 20 tokens and other group members contribute 0, 10, 5 respectively. "
                                  "Imagine that the computer program later randomly selects you as the fourth player, for whom the payoff-relevant decision "
-                                 "is from the second round. In the second round, you decide to contribute 10 when the average contribution in the first "
+                                 "is from the second round. In the second round, you decide to contribute 13 when the average contribution in the first "
                                  "round is 5. What's your final payoff?")
 
       quiz3_all = quiz3_question(
@@ -176,32 +176,34 @@ class Player(BasePlayer):
       def quiz1_all_error_message(self, quiz1_all):
           if quiz1_all != 35:
              self.participant.vars['quiz'] = 0
-             return 'Your answer for this question is {correct, incorrect} (depends on the answer). The correct answer is 35. This is because the fourth player' \
+             return 'Your answer for this question is incorrect. The correct answer is 35. This is because the fourth player' \
                     ' decides to contribute 20 in the first round and to contribute 10 in the second round if other players’ average contribution is 10 [(5+10+15)/3] ' \
                     'in the first round. The group’s ' \
                     'total contribution to the POOL is thus 5 + 10 +15 + 10 = 40. Each player’s earning from the POOL is thus 40*2/4 = 20. Your final payoff is ' \
                     '20 - 5 + 20 = 35.'
 
       def quiz2_all_error_message(self, quiz2_all):
-          if quiz2_all != 20:
+          if quiz2_all != 24:
              self.participant.vars['quiz'] = 0
-             return 'Your answer for this question is {correct, incorrect} (depends on the answer).  The correct answer is 22.5. ' \
+             return 'Your answer for this question is incorrect.  The correct answer is 21. ' \
                     'This is because your second round decision is the payoff-relevant decision. In this round you decide to contribute ' \
-                    '10 when other players on average contributed 5 in the first round. The group total contribution is thus 0 + 10 + 5 +10 = 25.' \
-                    ' Each individual earnings from the POOL is thus 25*2/4 = 12.5.  Your final payoff is 20 - 10 + 12.5 = 22.5.'
+                    '13 when other players on average contributed 5 in the first round. The group total contribution is thus 0 + 13 + 5 +10 = 28.' \
+                    ' Each individual earnings from the POOL is thus 28*2/4 = 14.  Your final payoff is 20 - 13 + 14 = 21.'
 
       def quiz3_all_error_message(self, quiz3_all):
           if quiz3_all != 28:
              return 'Your answer for this quesiton is incorrect. The correct answer is 28.' \
-                    ' This is because the player who contributes 20 in the first round' \
-                    ' contributes 6 in the second round when other players on average contribute 10 in the first round. ' \
-                    'The group total contribution is thus 6 + 5 + 10 +15 = 36. ' \
-                    'Each individual earnings from the project is thus 36*2/4 = 18.'\
+                    ' This is because the fourth player decides to contribute 20 in the first round' \
+                    ' and to contribute 6 in the second round if other players’ average contribute is 10 in the first round. ' \
+                    'The group’s total contribution to the POOL is thus 6 + 5 + 10 +15 = 36. ' \
+                    'Each player’s earning from the POOL is thus 36*2/4 = 18.'\
                     ' Your final payoff is 20 - 10 + 18 = 28.' \
 
       def quiz4_all_error_message(self, quiz4_all):
-          if quiz4_all != 25:
-              return 'Your answer for this question is incorrect. The correct answer is 25. This is because your second round decision is the payoff-relevant decision.' \
-                     ' And you decide to contribute 10 when other players on average contribute 10 in the first round. The group total contribution is thus 10 + 5 + 10 +15 = 40. ' \
+          if quiz4_all != 30:
+              return 'Your answer for this question is incorrect. The correct answer is 30. This is because ' \
+                     'your second round decision is the payoff-relevant decision.' \
+                     ' In this round you decide to contirbute 10 when other players on average contributed 10 in the first round. ' \
+                     'The group total contribution is thus 10 + 5 + 10 +15 = 40. ' \
                      'Each individual earnings from the project is thus 40*2/4 = 20.' \
-                     'Your final payoff is 20 - 15 + 20 = 25.'
+                     'Your final payoff is 20 - 10 + 20 = 30.'
