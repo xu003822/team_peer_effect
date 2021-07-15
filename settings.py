@@ -15,13 +15,6 @@ SESSION_CONFIGS = [
         num_demo_participants=12,
         app_sequence=['public_goods_majority_treatment'],
     ),
-    dict(
-        name='public_goods_random',
-        display_name='A public goods experiment_random',
-        num_demo_participants=12,
-        app_sequence=['public_goods_random_ballot'],
-    )
-    ,
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

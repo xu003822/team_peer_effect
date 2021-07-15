@@ -6,10 +6,11 @@
 {% endblock %}
 
 {% block content %}
-<p>In this round, your team's final payoff depends on the decision made in round 2. In round 1,
-    the other three teams on average contribute {{group.tot_other_avg}},
-    your team decided to contribute {{participant.vars.condi_choice}} in round 2.
-    Thus the results for this game are:
+
+<p>Your team's final payoff depends on the decision made in round 2 and other teams' decisions in round 1. In round 1,
+    the other three teams on average contributed {{group.tot_other_avg}},
+    your team decided to contribute {{participant.vars.condi_choice}} in round 2 when the average contribution of your group members is {{group.tot_other_avg}}.
+    Thus the results  are:
 </p>
 <div class="card bg-light m-3">
     <div class="card-body">

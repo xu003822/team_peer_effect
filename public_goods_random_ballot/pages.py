@@ -97,7 +97,7 @@ class ResultsWaitFinal(WaitPage):
     after_all_players_arrive = 'last_round_payoff'
 
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] == 4:
+        if self.player.participant.vars['conditional_round'] == 21:
             return True
         else:
             return False
@@ -114,14 +114,14 @@ class Results_FirstRound(Page):
 
 class Results_LastRound(Page):
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] == 4 and self.player.participant.vars['audit_or_not']==1:
+        if self.player.participant.vars['conditional_round'] == 21 and self.player.participant.vars['audit_or_not']==1:
             return True
         else:
             return False
 
 class Results_LastRound_notaudit(Page):
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] == 4 and self.player.participant.vars['audit_or_not']!=1:
+        if self.player.participant.vars['conditional_round'] == 21 and self.player.participant.vars['audit_or_not']!=1:
             return True
         else:
             return False
@@ -129,7 +129,7 @@ class Results_LastRound_notaudit(Page):
 
 class Questionaire(Page):
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] == 4:
+        if self.player.participant.vars['conditional_round'] == 21:
             return True
         else:
             return False
@@ -140,7 +140,7 @@ class Questionaire(Page):
 
 class Final_Thank_you(Page):
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] == 4:
+        if self.player.participant.vars['conditional_round'] == 21:
             return True
         else:
             return False
@@ -154,7 +154,7 @@ class Final_Thank_you(Page):
             acc_final=acc_dollar + self.session.config['participation_fee']
         )
 #
-page_sequence = [Contribute_first_page, ResultsWaitPage, Results_FirstRound,
+page_sequence = [ID, consent, Instruction, Quiz, Quiz2_1, Contribute_first_page, ResultsWaitPage, Results_FirstRound,
                 contribution_conditional, ResultsWaitConditional, ResultsWaitFinal, Results_LastRound,
                  Results_LastRound_notaudit,
                 Questionaire, Final_Thank_you]

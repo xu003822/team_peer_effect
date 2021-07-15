@@ -62,7 +62,7 @@ class contribution_conditional(Page):
     form_model = "player"
     form_fields = ["q"]
     def is_displayed(self):
-        if self.session.vars['agreed'] == 1 and self.player.participant.vars['conditional_round'] < 4:
+        if self.session.vars['agreed'] == 1 and self.player.participant.vars['conditional_round'] < 21:
             return True
         else:
             return False
@@ -131,7 +131,7 @@ class ResultsWaitFinal(WaitPage):
     after_all_players_arrive = 'last_round_payoff'
 
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] == 4 and self.session.vars['all_finished'] == 1:
+        if self.player.participant.vars['conditional_round'] == 21 and self.session.vars['all_finished'] == 1:
             return True
         else:
             return False
@@ -140,7 +140,7 @@ class ResultsWaitFinal(WaitPage):
 class Results_Agree(Page):
     def is_displayed(self):
         if (self.player.participant.vars['agree'] == 1 or self.player.participant.vars['agree_condi'] == 1) \
-                and self.player.participant.vars['conditional_round'] < 4:
+                and self.player.participant.vars['conditional_round'] < 21:
             return True
         else:
             return False
@@ -154,14 +154,14 @@ class Results_Disagree(Page):
 
 class WaitingOther_Condi(Page):
     def is_displayed(self):
-        if self.player.participant.vars['agree_condi'] == 1 and self.player.participant.vars['conditional_round'] >= 4:
+        if self.player.participant.vars['agree_condi'] == 1 and self.player.participant.vars['conditional_round'] >= 21:
             return True
         else:
             return False
 
 class Results_LastRound(Page):
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] >= 4:
+        if self.player.participant.vars['conditional_round'] >= 21:
            if self.session.vars['all_finished'] == 1 and self.player.participant.vars['audit_or_not'] == 1:
               return True
            else:
@@ -169,7 +169,7 @@ class Results_LastRound(Page):
 
 class Results_LastRound_notaudit(Page):
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] >= 4:
+        if self.player.participant.vars['conditional_round'] >= 21:
            if self.session.vars['all_finished'] == 1 and self.player.participant.vars['audit_or_not'] != 1:
               return True
            else:
@@ -178,7 +178,7 @@ class Results_LastRound_notaudit(Page):
 
 class Questionaire(Page):
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] == 4 and self.session.vars['all_finished'] == 1:
+        if self.player.participant.vars['conditional_round'] == 21 and self.session.vars['all_finished'] == 1:
             return True
         else:
             return False
@@ -188,7 +188,7 @@ class Questionaire(Page):
 
 class Final_Thank_you(Page):
     def is_displayed(self):
-        if self.player.participant.vars['conditional_round'] == 4 and self.session.vars['all_finished'] == 1:
+        if self.player.participant.vars['conditional_round'] == 21 and self.session.vars['all_finished'] == 1:
             return True
         else:
             return False

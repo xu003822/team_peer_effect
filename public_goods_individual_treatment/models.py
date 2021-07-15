@@ -22,7 +22,7 @@ class Constants(BaseConstants):
     players_per_group = 4
     multiplier = 2
     endow = 20
-    num_rounds=5
+    num_rounds=21
     endowment = 20
     ex_rate = 0.1 # exchange rate
     showup = 5

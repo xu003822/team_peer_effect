@@ -82,56 +82,56 @@ class Group(BaseGroup):
                     elif self.session.vars['other_average'] == 3:
                         p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][3]
 
-                    # elif self.session.vars['other_average'] == 4:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][4]
-                    #
-                    # elif self.session.vars['other_average'] == 5:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][5]
-                    #
-                    # elif self.session.vars['other_average'] == 6:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][6]
-                    #
-                    # elif self.session.vars['other_average'] == 7:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][7]
-                    #
-                    # elif self.session.vars['other_average'] == 8:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][8]
-                    #
-                    # elif self.session.vars['other_average'] == 9:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][9]
-                    #
-                    # elif self.session.vars['other_average'] == 10:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][10]
-                    #
-                    # elif self.session.vars['other_average'] == 11:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][11]
-                    #
-                    # elif self.session.vars['other_average'] == 12:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][12]
-                    #
-                    # elif self.session.vars['other_average'] == 13:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][13]
-                    #
-                    # elif self.session.vars['other_average'] == 14:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][14]
-                    #
-                    # elif self.session.vars['other_average'] == 15:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][15]
-                    #
-                    # elif self.session.vars['other_average'] == 16:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][16]
-                    #
-                    # elif self.session.vars['other_average'] == 17:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][17]
-                    #
-                    # elif self.session.vars['other_average'] == 18:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][18]
-                    #
-                    # elif self.session.vars['other_average'] == 19:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][19]
-                    #
-                    # elif self.session.vars['other_average'] == 20:
-                    #     p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][20]
+                    elif self.session.vars['other_average'] == 4:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][4]
+
+                    elif self.session.vars['other_average'] == 5:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][5]
+
+                    elif self.session.vars['other_average'] == 6:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][6]
+
+                    elif self.session.vars['other_average'] == 7:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][7]
+
+                    elif self.session.vars['other_average'] == 8:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][8]
+
+                    elif self.session.vars['other_average'] == 9:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][9]
+
+                    elif self.session.vars['other_average'] == 10:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][10]
+
+                    elif self.session.vars['other_average'] == 11:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][11]
+
+                    elif self.session.vars['other_average'] == 12:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][12]
+
+                    elif self.session.vars['other_average'] == 13:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][13]
+
+                    elif self.session.vars['other_average'] == 14:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][14]
+
+                    elif self.session.vars['other_average'] == 15:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][15]
+
+                    elif self.session.vars['other_average'] == 16:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][16]
+
+                    elif self.session.vars['other_average'] == 17:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][17]
+
+                    elif self.session.vars['other_average'] == 18:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][18]
+
+                    elif self.session.vars['other_average'] == 19:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][19]
+
+                    elif self.session.vars['other_average'] == 20:
+                        p.participant.vars['condi_choice'] = p.participant.vars['condi_list'][20]
 
             for p in large_group:
                 if p.participant.vars['audit_or_not'] == 1:
