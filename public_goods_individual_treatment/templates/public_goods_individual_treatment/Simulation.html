@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+  Simulation
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p>
+        Now you can randomly input numbers for all four players' contribution and see what are those players' payoff.
+</p>
+   </div>
+</div>
+{% load static %} <img src="{% static "payoff_table.png" %}" alt="Hi!" style="width: 130%;height: 130%;"/>
+
+
+{% formfield player.contribution1 %}
+
+{% formfield player.contribution2 %}
+
+{% formfield player.contribution3 %}
+
+{% formfield player.contribution4 %}
+
+
+{% next_button %}
+
+
+{% endblock %}

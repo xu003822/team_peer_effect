@@ -8,8 +8,8 @@
 {% block content %}
 
 <div class="formlabel">
-    If the average contribution from the other teams is <b>{{participant.vars.conditional_round}}</b> tokens,
-    how many tokens you want your team to contribute to the public POOL? (Note the average contribution is rounded to the closest integer.)
+    If the average contribution from the other teams is <b>{{participant.vars.conditional_round}}</b>,
+    how many tokens do you want your team to contribute to the public POOL? (Note the average contribution is rounded to the closest integer.)
     Before proposing the contribution, you can chat with your team members through the chatbox below.</div>
 
 <br>
@@ -63,7 +63,26 @@ Please enter the number of tokens you would like your team to contribute to the 
                that amount becomes the team contribution level. Otherwise, team members go back
                to propose again until two or more team members propose the same amount. Before proposing the contribution,
                members within a team can chat communicate with each other in an anonymous chat room. </p>
-  </div>
+        <p> <b>Example:</b><br>
+
+Assume in the first round your team decides to contribute 0 tokens and the other three teams contribute 8, 10, 12 respectively. And in the
+    second round, your team decide to contribute 20
+    tokens if the other teams contribute 10 on average. Imagine that the computer program randomly selects your team's second-round decision (i.e., your team is the
+    fourth team) and other three teams' first round decisions to constitute the total contribution to the POOL. In the first round, the other three
+    teams' average contribution is (8+10+12)/3=10, and in the second round your team decides to contribute 20 when the average is 10. The total contribution to
+    the POOL is thus 20+10*3 = 50. The total contribution is then multiplied by a factor of 2, and the resulting amount is the total earning from the POOL,
+    which is evenly split among all 4 teams. Thus your team gets 50*2/4=25 from the POOL. Your team's final payoff equals your team's earning from the POOL, 25, plus the amount
+    your team did not contribute in the second round, 0, resulting in 25. Since each team member's payoff is the same as the team's payoff, your final payoff is also 25.
+    The other three teams' final payoffs equal their earnings from the POOL, 25, plus what
+    they did not contribute in the first round. Therefore, for the team who contributes 8 to the POOL in the first round, the final payoff is the earning
+    from the POOL, 25, plus the amount it did not contribute, 12, which results in a final payoff of 37. For the team who contributes 10 to the POOL
+    in the first round, the final payoff is the earning from the POOL, 25, plus the amount it did not contribute, 10, which results in a final payoff
+    of 35. For the team who contributes 12 to the POOL
+    in the first round, the final payoff is the earning from the POOL, 25, plus the amount it did not contribute, 8, which results in a final payoff of 33.
+</p>
+
+
+    </div>
 </div>
 
 {% endblock %}

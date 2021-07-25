@@ -101,6 +101,8 @@ class Contribute_first_page_repeat(Page):
 
 class ResultsWaitConditional(WaitPage):
     after_all_players_arrive = 'set_payoff_conditional'
+    title_text = "Waiting Page"
+    body_text = "Waiting for others (including other teams) to finish their decisions"
 
     def is_displayed(self):
         if self.session.vars['agreed'] == 1:
@@ -111,6 +113,8 @@ class ResultsWaitConditional(WaitPage):
 
 class ResultsWaitPage(WaitPage):
     after_all_players_arrive = 'set_payoff'
+    title_text = "Waiting Page"
+    body_text = "Waiting for others (including other teams) to finish their decisions"
 
     def is_displayed(self):
        if self.round_number == 1:
@@ -120,6 +124,8 @@ class ResultsWaitPage(WaitPage):
 
 class ResultsWaitPage1(WaitPage):
     after_all_players_arrive = 'set_payoff1'
+    title_text = "Waiting Page"
+    body_text = "Waiting for others (including other teams) to finish their decisions"
 
     def is_displayed(self):
         if self.player.participant.vars['agree_condi'] == 2:
@@ -129,6 +135,8 @@ class ResultsWaitPage1(WaitPage):
 
 class ResultsWaitFinal(WaitPage):
     after_all_players_arrive = 'last_round_payoff'
+    title_text = "Waiting Page"
+    body_text = "Waiting for others (including other teams) to finish their decisions"
 
     def is_displayed(self):
         if self.player.participant.vars['conditional_round'] == 21 and self.session.vars['all_finished'] == 1:

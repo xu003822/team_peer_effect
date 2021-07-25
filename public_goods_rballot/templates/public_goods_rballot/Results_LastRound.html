@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+
+<p>Your team's final payoff depends on the decision made in round 2 and other teams' decisions in round 1. In round 1,
+    the other three teams on average contributed {{group.tot_other_avg}},
+    your team decided to contribute {{participant.vars.condi_choice}} in round 2 when the average contribution of your group members is {{group.tot_other_avg}}.
+    Thus the results  are:
+</p>
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p>
+    Your team contributed: <b>{{participant.vars.condi_choice}}</b>.<br>
+    The total contribution to the POOL: <b>{{ group.tot_contri }}</b>.<br>
+    Your team's earnings from the POOL: <b>{{ group.individual_share }}</b>.<br>
+    Your team's profit in the game is therefore <b>{{ player.payoff }}</b>.<br>
+    Your profit in the game is therefore <b>{{ player.payoff }}</b>.
+</p>
+    </div>
+</div>
+
+{% next_button %}
+
+{% endblock %}
+
+

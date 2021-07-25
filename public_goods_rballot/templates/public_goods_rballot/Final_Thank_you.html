@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Conclusion
+{% endblock %}
+
+{% block content %}
+    <script>
+        // Clears the local storage from the Comp Check Question Page timer.
+        localStorage.removeItem('saved_countdown');
+    </script>
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+
+    <p>
+        Thank you for your participation! You have earned a total of <b>{{acc_profit}}</b>, which is worth <b>{{acc_dollar}}</b>. Your total
+        payoff, including your participation fee, would then be <b>{{acc_final}}</b>.
+
+    </p>
+    <p>
+        Now the experiment is over! Please stay seated! The experimenter will hand you the cash in private.
+        If you have any questions after the experiment, please contact Chenyang Xu at <b>226-340-9757 or cxu@uwindsor.ca</b>
+    </p>
+
+    </div>
+</div>
+
+
+{% endblock %}

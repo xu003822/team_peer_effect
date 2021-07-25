@@ -129,6 +129,10 @@ def quiz4_question(label):
 
 class Player(BasePlayer):
       id_number = models.IntegerField(label="Please enter your ID number here", min=0, max=300)
+      contribution1 = models.IntegerField(label="Please enter your contribution of player 1", min=0, max=20)
+      contribution2 = models.IntegerField(label="Please enter your contribution of player 2", min=0, max=20)
+      contribution3 = models.IntegerField(label="Please enter your contribution of player 3", min=0, max=20)
+      contribution4 = models.IntegerField(label="Please enter your contribution of player 4", min=0, max=20)
       acc_payoff = models.CurrencyField(label="The player's accumulative payoff is ")
       contribution = models.IntegerField(label="How many tokens you decide to contribute in this round", min=0, max=20)
       other_contri = models.IntegerField(label="Please also enter your expectation of the average catch of other group members", min=0, max=20)
@@ -176,37 +180,62 @@ class Player(BasePlayer):
                                  " round, you decide to contribute 10 when the average contribution in the first round is 10."
                                  " What's your final payoff?")
 
-      def quiz1_all_error_message(self, quiz1_all):
-          if quiz1_all != 35:
-             self.participant.vars['quiz'] = 0
-             return 'Your answer for this question is incorrect. The correct answer is 35. This is because the fourth player' \
-                    ' decides to contribute 20 in the first round and to contribute 10 in the second round if other players’ average contribution is 10 [(5+10+15)/3] ' \
-                    'in the first round. The group’s ' \
-                    'total contribution to the POOL is thus 5 + 10 +15 + 10 = 40. Each player’s earning from the POOL is thus 40*2/4 = 20. Your final payoff is ' \
-                    '20 - 5 + 20 = 35.'
-
-      def quiz2_all_error_message(self, quiz2_all):
-          if quiz2_all != 21:
-             self.participant.vars['quiz'] = 0
-             return 'Your answer for this question is incorrect.  The correct answer is 21. ' \
-                    'This is because your second round decision is the payoff-relevant decision. In this round you decide to contribute ' \
-                    '13 when other players on average contributed 5 in the first round. The group total contribution is thus 0 + 13 + 5 +10 = 28.' \
-                    ' Each individual earnings from the POOL is thus 28*2/4 = 14.  Your final payoff is 20 - 13 + 14 = 21.'
-
-      def quiz3_all_error_message(self, quiz3_all):
-          if quiz3_all != 31:
-             return 'Your answer for this quesiton is incorrect. The correct answer is 31.' \
-                    ' This is because the fourth player decides to contribute 20 in the first round' \
-                    ' and to contribute 7 in the second round if other players’ average contribute is 5 in the first round. ' \
-                    'The group’s total contribution to the POOL is thus 7 + 5 + 10 + 0 = 22. ' \
-                    'Each player’s earning from the POOL is thus 22*2/4 = 11.'\
-                    ' Your final payoff is 20 - 0 + 11 = 31.' \
-
-      def quiz4_all_error_message(self, quiz4_all):
-          if quiz4_all != 30:
-              return 'Your answer for this question is incorrect. The correct answer is 30. This is because ' \
-                     'your second round decision is the payoff-relevant decision.' \
-                     ' In this round you decide to contirbute 10 when other players on average contributed 10 in the first round. ' \
-                     'The group total contribution is thus 10 + 5 + 10 +15 = 40. ' \
-                     'Each individual earnings from the project is thus 40*2/4 = 20.' \
-                     'Your final payoff is 20 - 10 + 20 = 30.'
+      # def quiz1_all_error_message(self, quiz1_all):
+      #     if quiz1_all != 35:
+      #        self.participant.vars['quiz'] = 0
+      #        return 'Your answer for this question is incorrect. The correct answer is 35. This is because the fourth player' \
+      #               ' decides to contribute 20 in the first round and to contribute 10 in the second round if other players’ average contribution is 10 [(5+10+15)/3] ' \
+      #               'in the first round. The group’s ' \
+      #               'total contribution to the POOL is thus 5 + 10 +15 + 10 = 40. Each player’s earning from the POOL is thus 40*2/4 = 20. Your final payoff is ' \
+      #               '20 - 5 + 20 = 35.'
+      #     # else:
+      #     #     return 'Your answer for this question is correct. This is because the fourth player' \
+      #     #            ' decides to contribute 20 in the first round and to contribute 10 in the second round if other players’ average contribution is 10 [(5+10+15)/3] ' \
+      #     #            'in the first round. The group’s ' \
+      #     #            'total contribution to the POOL is thus 5 + 10 +15 + 10 = 40. Each player’s earning from the POOL is thus 40*2/4 = 20. Your final payoff is ' \
+      #     #            '20 - 5 + 20 = 35.'
+      #
+      # def quiz2_all_error_message(self, quiz2_all):
+      #     if quiz2_all != 21:
+      #        self.participant.vars['quiz'] = 0
+      #        return 'Your answer for this question is incorrect.  The correct answer is 21. ' \
+      #               'This is because your second round decision is the payoff-relevant decision. In this round you decide to contribute ' \
+      #               '13 when other players on average contributed 5 in the first round. The group total contribution is thus 0 + 13 + 5 +10 = 28.' \
+      #               ' Each individual earnings from the POOL is thus 28*2/4 = 14.  Your final payoff is 20 - 13 + 14 = 21.'
+      #     # else:
+      #     #     return 'Your answer for this question is correct.  ' \
+      #     #            'This is because your second round decision is the payoff-relevant decision. In this round you decide to contribute ' \
+      #     #            '13 when other players on average contributed 5 in the first round. The group total contribution is thus 0 + 13 + 5 +10 = 28.' \
+      #     #            ' Each individual earnings from the POOL is thus 28*2/4 = 14.  Your final payoff is 20 - 13 + 14 = 21.'
+      #
+      # def quiz3_all_error_message(self, quiz3_all):
+      #     if quiz3_all != 31:
+      #        return 'Your answer for this quesiton is incorrect. The correct answer is 31.' \
+      #               ' This is because the fourth player decides to contribute 20 in the first round' \
+      #               ' and to contribute 7 in the second round if other players’ average contribute is 5 in the first round. ' \
+      #               'The group’s total contribution to the POOL is thus 7 + 5 + 10 + 0 = 22. ' \
+      #               'Each player’s earning from the POOL is thus 22*2/4 = 11.'\
+      #               ' Your final payoff is 20 - 0 + 11 = 31.'
+      #     # else:
+      #     #     return 'Your answer for this quesiton is correct.' \
+      #     #           ' This is because the fourth player decides to contribute 20 in the first round' \
+      #     #           ' and to contribute 7 in the second round if other players’ average contribute is 5 in the first round. ' \
+      #     #           'The group’s total contribution to the POOL is thus 7 + 5 + 10 + 0 = 22. ' \
+      #     #           'Each player’s earning from the POOL is thus 22*2/4 = 11.' \
+      #     #           ' Your final payoff is 20 - 0 + 11 = 31.'
+      #
+      # def quiz4_all_error_message(self, quiz4_all):
+      #     if quiz4_all != 30:
+      #         return 'Your answer for this question is incorrect. The correct answer is 30. This is because ' \
+      #                'your second round decision is the payoff-relevant decision.' \
+      #                ' In this round you decide to contirbute 10 when other players on average contributed 10 in the first round. ' \
+      #                'The group total contribution is thus 10 + 5 + 10 +15 = 40. ' \
+      #                'Each individual earnings from the project is thus 40*2/4 = 20.' \
+      #                'Your final payoff is 20 - 10 + 20 = 30.'
+      #     # else:
+      #     #     return 'Your answer for this question is correct. This is because ' \
+      #     #            'your second round decision is the payoff-relevant decision.' \
+      #     #            ' In this round you decide to contirbute 10 when other players on average contributed 10 in the first round. ' \
+      #     #            'The group total contribution is thus 10 + 5 + 10 +15 = 40. ' \
+      #     #            'Each individual earnings from the project is thus 40*2/4 = 20.' \
+      #     #            'Your final payoff is 20 - 10 + 20 = 30.'

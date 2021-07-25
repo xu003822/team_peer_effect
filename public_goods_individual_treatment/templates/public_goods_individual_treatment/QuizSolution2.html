@@ -2,17 +2,70 @@
 {% load otree static %}
 
 {% block title %}
-    Round 2_Scenario {{condi_round}}
+    Quiz
 {% endblock %}
 
 {% block content %}
+<style>
+        /* we use this instead of setting 'disabled' because disabled inputs don't get
+        submitted by the form, and therefore the server would complain that the form is missing.
+         */
+        input {
+            pointer-events: none;
+        }
 
-<div class="formlabel">
-    If the average contribution from the other players in your group is <b>{{condi_round}}</b>,
-    how many tokens do you want to contribute to the POOL? (Note the average contribution is rounded to the closest integer.)
-    </div> <br>
+        .solution-incorrect {
+            color: red;
+        }
 
-{% formfield player.q %}
+        .solution-correct {
+            color: green;
+        }
+    </style>
+
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+<p>
+Before you begin, please answer the following questions to ensure that you understand the instructions.
+</p>
+    </div>
+</div>
+
+{% formfield player.quiz3_all %}
+
+{% if player.quiz3_all != 31 %} <p class="solution-incorrect">Your answer for this quesiton is incorrect. The correct answer is 31. <br>
+      This is because the fourth player decides to contribute 20 in the first round
+       and to contribute 7 in the second round if other players’ average contribute is 5 in the first round.
+      The group’s total contribution to the POOL is thus 7 + 5 + 10 + 0 = 22.
+      Each player’s earning from the POOL is thus 22*2/4 = 11.
+      Your final payoff is 20 - 0 + 11 = 31.</p>
+{% else %} <p class="solution-correct"> Your answer for this quesiton is correct.<br>
+      This is because the fourth player decides to contribute 20 in the first round
+       and to contribute 7 in the second round if other players’ average contribute is 5 in the first round.
+      The group’s total contribution to the POOL is thus 7 + 5 + 10 + 0 = 22.
+      Each player’s earning from the POOL is thus 22*2/4 = 11.
+      Your final payoff is 20 - 0 + 11 = 31.</p>
+{% endif %}
+
+{% formfield player.quiz4_all %}
+
+{% if player.quiz4_all != 30 %} <p  class="solution-incorrect">Your answer for this question is incorrect. The correct answer is 30. <br>
+    This is because
+     your second round decision is the payoff-relevant decision.
+      In this round you decide to contirbute 10 when other players on average contributed 10 in the first round.
+      The group total contribution is thus 10 + 5 + 10 +15 = 40.
+     Each individual earnings from the project is thus 40*2/4 = 20.
+      Your final payoff is 20 - 10 + 20 = 30.</p>
+{% else %} <p class="solution-correct"> Your answer for this question is correct. <br>
+    This is because
+     your second round decision is the payoff-relevant decision.
+      In this round you decide to contirbute 10 when other players on average contributed 10 in the first round.
+      The group total contribution is thus 10 + 5 + 10 +15 = 40.
+     Each individual earnings from the project is thus 40*2/4 = 20.
+      Your final payoff is 20 - 10 + 20 = 30.</p>
+
+{% endif %}
 
 {% next_button %}
 
@@ -51,22 +104,5 @@
             selected fourth player, the second round’s outcome determines the final payoff. This player’s final payoff is the earnings
             from the POOL plus the amount s/he didn't contribute in the second round.
         </p>
-        <p> <b>Example:</b><br>
-
-    Assume in the first round you decide to contribute 0 tokens and other players in your group contribute 8, 10, 12 respectively. And in the second round, you decide to contribute 20
-    tokens if the other players contribute 10 on average. Imagine that the computer program randomly selects your second-round decision (i.e., you are the
-    fourth player) and other three members' first round decisions to constitute the total contribution to the POOL. In the first round, the other three
-    player's average contribution is (8+10+12)/3=10, and in the second round you decide to contribute 20 when the average is 10. The total contribution to
-    the POOL is thus 20+10*3 = 50. The total contribution is then multiplied by a factor of 2, and the resulting amount is the total earnings from the POOL,
-    which is evenly split among all 4 players. Thus you get 50*2/4=25 from the POOL. Your final payoff equals your earnings from the POOL, 25, plus the amount
-    you did not contribute in the second round, 0, resulting in 25. The other three players' final payoffs equal their earnings from the POOL, 25, plus what
-    they did not contribute in the first round. Therefore, for the member who contributes 8 to the POOL in the first round, the final payoff is the earnings
-    from the POOL, 25, plus the amount s/he did not contribute, 12, which results in a final payoff of 37. For the member who contributes 10 to the POOL
-    in the first round, the final payoff is the earnings from the POOL, 25, plus the amount s/he did not contribute, 10, which results in a final payoff
-    of 35. For the member who contributes 12 to the POOL
-    in the first round, the final payoff is the earnings from the POOL, 25, plus the amount s/he did not contribute, 8, which results in a final payoff of 33.
-</p>
 
 {% endblock %}
-
-

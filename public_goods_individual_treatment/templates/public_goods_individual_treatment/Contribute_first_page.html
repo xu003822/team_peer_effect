@@ -12,8 +12,8 @@
 <p>
   In this round, each participant in
         the group decides how many tokens to contribute to
-        the public POOL. Contribution could be any integer from 0
-        to {{ Constants.endowment }}. Please enter the number of tokens you would like to contribute to the public POOL.
+        the POOL. Contribution could be any integer from 0
+        to {{ Constants.endowment }}. Please enter the number of tokens you would like to contribute to the POOL.
 </p>
    </div>
 </div>
@@ -31,8 +31,8 @@
             randomly selected from the people in this room, to form a group of four. You will remain in this
             group of four players for the duration of the entire decision-making experiment. The identity of
             the other players of your group will not be revealed.
-            Each player in your group will receive {{ Constants.endowment }}  tokens at the beginning of this experiment. The experiment has two
-            independent rounds. In the first round, each player decides how much of the {{ Constants.endowment }}  tokens to keep, and
+            Each player in your group will receive {{ Constants.endowment }}  tokens at the beginning of this experiment. The experiment has
+           <b>two independent rounds</b>. In the first round, each player decides how much of the {{ Constants.endowment }}  tokens to keep, and
             how much to contribute to a public POOL that  is shared by all players in your group: You can contribute
             any number between 0 and {{ Constants.endowment }}  and only whole numbers will be accepted. In the second round, you will be asked
             to indicate your conditional contribution levels for each of the 21 possible average contribution levels
@@ -58,6 +58,21 @@
             selected fourth player, the second round’s outcome determines the final payoff. This player’s final payoff is the earnings
             from the POOL plus the amount s/he didn't contribute in the second round.
         </p>
+        <p> <b>Example:</b><br>
+
+    Assume in the first round you decide to contribute 0 tokens and other players in your group contribute 8, 10, 12 respectively. And in the second round, you decide to contribute 20
+    tokens if the other players contribute 10 on average. Imagine that the computer program randomly selects your second-round decision (i.e., you are the
+    fourth player) and other three members' first round decisions to constitute the total contribution to the POOL. In the first round, the other three
+    player's average contribution is (8+10+12)/3=10, and in the second round you decide to contribute 20 when the average is 10. The total contribution to
+    the POOL is thus 20+10*3 = 50. The total contribution is then multiplied by a factor of 2, and the resulting amount is the total earnings from the POOL,
+    which is evenly split among all 4 players. Thus you get 50*2/4=25 from the POOL. Your final payoff equals your earnings from the POOL, 25, plus the amount
+    you did not contribute in the second round, 0, resulting in 25. The other three players' final payoffs equal their earnings from the POOL, 25, plus what
+    they did not contribute in the first round. Therefore, for the member who contributes 8 to the POOL in the first round, the final payoff is the earnings
+    from the POOL, 25, plus the amount s/he did not contribute, 12, which results in a final payoff of 37. For the member who contributes 10 to the POOL
+    in the first round, the final payoff is the earnings from the POOL, 25, plus the amount s/he did not contribute, 10, which results in a final payoff
+    of 35. For the member who contributes 12 to the POOL
+    in the first round, the final payoff is the earnings from the POOL, 25, plus the amount s/he did not contribute, 8, which results in a final payoff of 33.
+</p>
 
    </div>
 </div>

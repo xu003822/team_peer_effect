@@ -2,28 +2,22 @@
 {% load otree static %}
 
 {% block title %}
-   Round 1
+    Round 2_Scenario {{participant.vars.conditional_round}}
 {% endblock %}
 
 {% block content %}
 
-<div class="card bg-light m-3">
-    <div class="card-body">
-<p>
-      In this round, each team decides how many tokens to contribute to
-        the public POOL. Contribution could be any integer from 0
-        to {{ Constants.endowment }}. Please enter the number of tokens you would like your team to contribute to the public POOL.
-        Before proposing the contribution, you can chat with your team members through the chatbox below.
-</p>
-   </div>
-</div>
+<div class="formlabel">
 
+    If the average contribution from the other teams is <b>{{participant.vars.conditional_round}}</b>,
+    how many tokens do you want your team to contribute to the public POOL? (Note the average contribution is rounded to the closest integer.)
+    Before proposing the contribution, you can chat with your team members through the chatbox below.</div>
+<br>
 You are Player {{player.team_subid}} in {{ player.role }}
-
 {% chat nickname=player.chat_nickname channel=player.role %}
 <br>
-{% formfield player.contribution %}
-
+Please enter the number of tokens you would like your team to contribute to the POOL.
+{% formfield player.q %}
 
 {% next_button %}
 
@@ -31,7 +25,7 @@ You are Player {{player.team_subid}} in {{ player.role }}
     <div class="card-body">
         <b>Reminder of the Rule </b> <br>
         <br>
-    <p> At the beginning of this decision-making experiment you will be matched with two other players,
+<p> At the beginning of this decision-making experiment you will be matched with two other players,
             randomly selected from the people in this room, to form a team of three. You will remain in this
             team of three players for the duration of the entire decision-making experiment. The identity of
             the other players of your team will not be revealed. Your team will play a game with three other teams in the experiment.
@@ -64,11 +58,9 @@ You are Player {{player.team_subid}} in {{ player.role }}
             selected fourth team, the second round’s outcome determines the final payoff. This team’s final payoff is the earnings
             from the POOL plus the amount it didn't contribute in the second round.
         </p>
-                 <b>Decision rule within a team:</b> <br>
-           <p>Within a team, each team member will propose a contribution level each round. If at least two members propose the same amount,
-               that amount becomes the team contribution level. Otherwise, team members go back
-               to propose again until two or more team members propose the same amount. Before proposing the contribution,
-               members within a team can chat communicate with each other in an anonymous chat room. </p>
+                <b>Decision rule within a team:</b> <br>
+           <p>Within a team, each team member will propose a contribution level each round. A random draw will then determine
+               which team member's proposed contribution level to be the team's contribution level.</p>
         <p> <b>Example:</b><br>
 
 Assume in the first round your team decides to contribute 0 tokens and the other three teams contribute 8, 10, 12 respectively. And in the
@@ -88,5 +80,6 @@ Assume in the first round your team decides to contribute 0 tokens and the other
 </p>
   </div>
 </div>
-
 {% endblock %}
+
+

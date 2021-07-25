@@ -386,7 +386,7 @@ class Player(BasePlayer):
     quiz2_all = quiz2_question(
         "2. If in the first round your team decides to contribute 20 tokens and other three teams contribute 0, 10, 5 respectively. "
         "Imagine that the computer program later randomly selects your team as the fourth team, for which the payoff-relevant decision "
-        "is from the second round. In the second round, your team decides to contribute 10 when the average contribution in the first "
+        "is from the second round. In the second round, your team decides to contribute 13 when the average contribution in the first "
         "round is 5. What's your final payoff?")
 
     quiz3_all = quiz3_question(
@@ -410,11 +410,22 @@ class Player(BasePlayer):
                    'in the first round. The ' \
                    'total contribution to the POOL is thus 5 + 10 +15 + 10 = 40. Each team’s earning from the POOL is thus 40*2/4 = 20. Your team’s final payoff is ' \
                    '20 - 5 + 20 = 35. So your final payoff is 35.'
+        else:
+            return 'Your answer for this question is correct. This is because the fourth team' \
+                   ' decides to contribute 20 in the first round and to contribute 10 in the second round if other teams’ average contribution is 10 [(5+10+15)/3] ' \
+                   'in the first round. The ' \
+                   'total contribution to the POOL is thus 5 + 10 +15 + 10 = 40. Each team’s earning from the POOL is thus 40*2/4 = 20. Your team’s final payoff is ' \
+                   '20 - 5 + 20 = 35. So your final payoff is 35.'
 
     def quiz2_all_error_message(self, quiz2_all):
         if quiz2_all != 21:
             self.participant.vars['quiz'] = 0
             return 'Your answer for this question is incorrect.  The correct answer is 21. ' \
+                   'This is because your team’s second round decision is the payoff-relevant decision. In this round your team decide to contribute ' \
+                   '13 when other teams on average contributed 5 in the first round. The total contribution is thus 0 + 13 + 5 +10 = 28.' \
+                   ' Each team’s payoff from the POOL is thus 28*2/4 = 14.  Your team’s final payoff is 20 - 13 + 14 = 21. So your final payoff is 21.'
+        else:
+            return 'Your answer for this question is correct.  ' \
                    'This is because your team’s second round decision is the payoff-relevant decision. In this round your team decide to contribute ' \
                    '13 when other teams on average contributed 5 in the first round. The total contribution is thus 0 + 13 + 5 +10 = 28.' \
                    ' Each team’s payoff from the POOL is thus 28*2/4 = 14.  Your team’s final payoff is 20 - 13 + 14 = 21. So your final payoff is 21.'
@@ -426,11 +437,25 @@ class Player(BasePlayer):
                    ' contributes 7 in the second round when other teams on average contribute 5 in the first round. ' \
                    'The total contribution is thus 7 + 5 + 10 +0 = 22. ' \
                    'Each team’s payoff from the POOL is thus 22*2/4 = 11.' \
-                   ' Your team’s final payoff is 20 - 0 + 11 = 31. So your final payoff is 31.' \
+                   ' Your team’s final payoff is 20 - 0 + 11 = 31. So your final payoff is 31.'
+        else:
+            return 'Your answer for this quesiton is correct. ' \
+                   ' This is because the team who contributes 20 in the first round' \
+                   ' contributes 7 in the second round when other teams on average contribute 5 in the first round. ' \
+                   'The total contribution is thus 7 + 5 + 10 +0 = 22. ' \
+                   'Each team’s payoff from the POOL is thus 22*2/4 = 11.' \
+                   ' Your team’s final payoff is 20 - 0 + 11 = 31. So your final payoff is 31.'
 
     def quiz4_all_error_message(self, quiz4_all):
         if quiz4_all != 30:
             return 'Your answer for this question is incorrect. The correct answer is 30. This is because your team’s second ' \
+                   'round decision is the payoff-relevant decision.' \
+                   ' And your team decides to contribute 10 when other teams on average contribute 10 in the first round. The total contribution ' \
+                   'is thus 10 + 5 + 10 +15 = 40. ' \
+                   'Each team’s payoff from the POOL is thus 40*2/4 = 20.' \
+                   'Your team’s final payoff is 20 - 10 + 20 = 30. So your final payoff is 30.'
+        else:
+            return 'Your answer for this question is correct. This is because your team’s second ' \
                    'round decision is the payoff-relevant decision.' \
                    ' And your team decides to contribute 10 when other teams on average contribute 10 in the first round. The total contribution ' \
                    'is thus 10 + 5 + 10 +15 = 40. ' \

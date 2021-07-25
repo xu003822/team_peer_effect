@@ -1,0 +1,31 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+   Simulation_results
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light m-3">
+    <div class="card-body">
+    Player 1 chooses to contribute: <b>{{player.contribution1}}</b>.<br>
+    Player 2 chooses to contribute: <b>{{player.contribution2}}</b>.<br>
+    Player 3 chooses to contribute: <b>{{player.contribution3}}</b>.<br>
+    Player 4 chooses to contribute: <b>{{player.contribution4}}</b>.
+   </div>
+</div>
+The simulation results are:<br><br>
+
+The total contribution to POOL is <b>{{result_sum}}</b>.<br>
+The return from the POOL is <b>{{result_return}}</b>.<br>
+Player 1's payoff: <b>{{result_sim1}}</b>.<br>
+Player 2's payoff: <b>{{result_sim2}}</b>.<br>
+Player 3's payoff: <b>{{result_sim3}}</b>.<br>
+Player 4's payoff: <b>{{result_sim4}}</b>.<br>
+<br><br>
+
+{% next_button %}
+
+
+{% endblock %}
